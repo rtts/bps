@@ -1,34 +1,37 @@
-Source: autodidact
+Source: bps
 Section: web
 Priority: extra
 Maintainer: Wessel Dankers <wsl@fruit.je>
 Build-Depends: debhelper (>= 7), apache2-dev, python3, dh-python, python3-setuptools,
-	python3-six,
-	python3-markdown,
-	python3-pil,
+        python3-six,
+       	python3-markdown,
+       	python3-pil,
         python3-ldap3,
-	python3-django,
-	python3-django-cleanup,
-	python3-django-adminsortable,
+        python3-django,
+        python3-django-cleanup,
+        python3-django-adminsortable,
         python3-django-mptt,
+        python3-django-autodidact,
         python3-django-pandocfield,
 Standards-Version: 3.9.7
 
-Package: autodidact
+Package: bps
 Architecture: all
 Depends: ${python3:Depends}, ${misc:Depends}, libjs-jquery, makepasswd,
-	python3-six,
-	python3-markdown,
-	python3-pil,
+        python3-six,
+        python3-markdown,
+        python3-pil,
         python3-ldap3,
-	python3-django,
-	python3-django-cleanup,
-	python3-django-adminsortable,
+        python3-django,
+        python3-django-cleanup,
+        python3-django-adminsortable,
         python3-django-mptt,
+        python3-django-autodidact,
         python3-django-pandocfield,
 Recommends: apache2 (>= 2.4.10~), libapache2-mod-wsgi-py3, python3-psycopg2, python3-django-casclient
-Description: CMS for creating self-learning activities
- Autodidact is a simple content-management system (CMS) for creating
- self-learning activities. It is used at Tilburg University for the "Best
- Practices in Statistics" series of lab sessions, soon to be made available
- to the general public at https://bps.uvt.nl/
+Description: Tilburg University web application for learning statistics
+ Best Practices in Statistics (BPS) is a web application for learning
+ statistics. Students can learn and practice statistical techniques in
+ the form of "Blended Learning": step-by-step digital instructions
+ crafted by statistics teachers, tailored to the contents of the
+ various statistics courses provided by Tilburg University.
