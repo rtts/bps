@@ -1,0 +1,120 @@
+#!/usr/bin/env python3
+import sys
+import requests
+import argparse
+from termcolor import colored
+from bs4 import BeautifulSoup
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-u', '--username', required=True, help='A valid Uvt username')
+parser.add_argument('-p', '--password', required=True, help='A valid password')
+args = parser.parse_args()
+
+STATE_OK = 0
+STATE_WARNING = 1
+STATE_CRITICAL = 2
+STATE_UNKNOWN = 3
+EXIT_STATUS = STATE_OK
+HTTP_URL = 'http://bps.uvt.nl/'
+HTTPS_URL = 'https://bps.uvt.nl/'
+SSO_URL = 'https://sso.uvt.nl/login?service=https%3A%2F%2Fbps.uvt.nl%2Flogin%2F%3Fnext%3D%252F'
+SSO_POST_URL = 'https://sso.uvt.nl/login'
+
+s = requests.Session()
+
+def check_bps():
+    check_sso_redirect()
+    check_sso_login()
+
+def print_docstring(func):
+    'A simple decorator that prints a function’s docstring'
+    def wrapper(*args, **kwargs):
+        print('', func.__doc__, '=' * len(func.__doc__), sep='\n')
+        return func(*args, **kwargs)
+    return wrapper
+
+@print_docstring
+def check_sso_redirect():
+    'Check if the BPS application correctly redirects to the SSO server'
+
+    r = requests.get(HTTP_URL)
+    check('Requests over plain HTTP are redirected',
+          r.history and r.history[0].is_redirect)
+
+    check('Plain HTTP requests are redirected to ' + HTTPS_URL,
+          r.history and r.history[1].url == HTTPS_URL)
+
+    check('Cookieless requests are redirected',
+          r.history and r.history[1].is_redirect)
+
+    check('Cookieless requests are redirected to the login page',
+          r.history and r.history[2].url == HTTPS_URL + 'login/?next=/')
+
+    check('Requests to the login page are redirected',
+          r.history and r.history[2].is_redirect)
+
+    check('Requests to the login page are redirected to the SSO server',
+          r.url == SSO_URL)
+
+    check('The SSO server responds with 200 OK',
+          r.status_code == requests.codes.OK)
+
+@print_docstring
+def check_sso_login():
+    'Check the login procedure via the SSO server'
+
+    r = requests.get(SSO_URL)
+    sso_cookie = r.cookies['session']
+    check('The SSO server provides a session cookie',
+          sso_cookie)
+
+    soup = BeautifulSoup(r.content, 'lxml')
+    sso_login_form = {
+        'username': args.username,
+        'password': args.password,
+    }
+    for tag in soup.find_all("input", type="hidden"):
+        sso_login_form[tag['name']] = tag['value']
+    cookies = r.cookies
+    r = s.post(SSO_POST_URL, data=sso_login_form, cookies=cookies)
+    check('After logging in, the SSO server returns a redirect',
+          r.history and r.history[0].is_redirect)
+
+    check('After logging in, the SSO server redirects to {}'.format(HTTPS_URL),
+          r.history and r.history[1].url.startswith(HTTPS_URL))
+
+    check('The login view returns (yet another!) redirect',
+          r.history and r.history[1].is_redirect)
+
+    check('The login view redirects to the homepage',
+          r.url == HTTPS_URL)
+
+    check('The login view has set the sessionid token',
+          'sessionid' in s.cookies)
+
+    r = s.get(HTTPS_URL)
+    check('Subsequent requests have their session persisted (i.e. do not require logging in)',
+          not r.history and r.url == HTTPS_URL)
+
+def check(message, succeeded):
+    if succeeded:
+        show('  OK  ', 'green', message)
+    else:
+        show('FAILED', 'red', message)
+        global EXIT_STATUS
+        EXIT_STATUS = STATE_CRITICAL
+
+def show(status, color, message):
+    if sys.stdout.isatty():
+        status = colored(status, color, attrs=['bold'])
+    print('[{}] {}'.format(status, message))
+
+if __name__ == '__main__':
+    try:
+        check_bps()
+        print()
+        exit(EXIT_STATUS)
+    except Exception as e:
+        show('ERROR', 'red', e)
+        print()
+        exit(STATE_UNKNOWN)

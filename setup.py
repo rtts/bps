@@ -7,9 +7,9 @@ if sys.argv[-1] == 'test':
     sys.exit()
 
 setup(
-    name = 'autodidact',
-    version = '0.9',
-    url = 'https://github.com/JaapJoris/autodidact',
+    name = 'bps',
+    version = '1.0',
+    url = 'https://github.com/JaapJoris/bps',
     author = 'Jaap Joris Vens',
     author_email = 'jj@rtts.eu',
     maintainer = 'Wessel Dankers',
@@ -25,5 +25,6 @@ setup(
         'six >= 1.8.0, <= 1.10.0',
         'django-admin-sortable == 2.0.12',
         'django-cleanup == 0.4.2',
+        'django-mptt==0.8.4',
     ],
 )
