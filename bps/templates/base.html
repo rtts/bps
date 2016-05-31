@@ -23,7 +23,8 @@
         <a href="{% url 'logout' %}">Log out</a>
         {% if user.is_staff %}
         <br>
-        <span class="staff">You are a staff member</span>
+        <span class="staff">You are a staff member<br>
+          (read the <a href="/page/help_index">documentation</a>!)</span>
         {% endif %}
       </div>
       {% endif %}

@@ -5,3 +5,6 @@
 /build/
 /.coverage
 /htmlcov
+/autodidact
+/pandocfield
+/uvt_user
