@@ -72,7 +72,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_cleanup',
     'pandocfield',
-    'mptt',
     'uvt_user',
     'autodidact',
 ]
