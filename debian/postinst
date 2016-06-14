@@ -32,7 +32,7 @@ case $1 in
 
         # Run management commands
         su www-data -s /bin/sh -c 'manage.py migrate'
-	yes yes | manage.py collectstatic
+	manage.py collectstatic --noinput
 
         # Insert correct dir into example configuration
 	project_dir=`python3 -c 'import os,bps; print(os.path.dirname(bps.__file__))'`

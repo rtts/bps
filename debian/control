@@ -36,7 +36,7 @@ Description: Tilburg University web application for learning statistics
 
 Package: bps-monitor
 Architecture: all
-Depends: ${python3:Depends}, ${misc:Depends}
+Depends: ${python3:Depends}, ${misc:Depends}, python3-requests, python3-termcolor, python3-bs4
 Description: Tilburg University web application for learning statistics
  Best Practices in Statistics (BPS) is a web application for learning
  statistics. Students can learn and practice statistical techniques in

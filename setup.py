@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import os, sys
-from setuptools import setup, find_packages
+from setuptools import setup
 
 if sys.argv[-1] == 'test':
     os.system('/usr/bin/env python3 manage.py test')
@@ -16,7 +16,7 @@ setup(
     maintainer_email = 'wsl@fruit.je',
     license = 'AGPL',
     scripts = ['manage.py', 'bps_monitor/check_bps'],
-    packages = find_packages(),
+    packages = ['bps', 'uvt_user', 'uvt_user.migrations'],
     include_package_data = True,
     install_requires = [
         'django >= 1.7.7, <= 1.9.4',
