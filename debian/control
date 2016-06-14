@@ -35,3 +35,16 @@ Description: Tilburg University web application for learning statistics
  the form of "Blended Learning": step-by-step digital instructions
  crafted by statistics teachers, tailored to the contents of the
  various statistics courses provided by Tilburg University.
+
+Package: bps-monitor
+Architecture: all
+Depends: ${python3:Depends}, ${misc:Depends}
+Description: Tilburg University web application for learning statistics
+ Best Practices in Statistics (BPS) is a web application for learning
+ statistics. Students can learn and practice statistical techniques in
+ the form of "Blended Learning": step-by-step digital instructions
+ crafted by statistics teachers, tailored to the contents of the
+ various statistics courses provided by Tilburg University.
+ .
+ This package contains the monitor script, useful for integration in
+ Nagios.

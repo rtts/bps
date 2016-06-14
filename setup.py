@@ -15,7 +15,7 @@ setup(
     maintainer = 'Wessel Dankers',
     maintainer_email = 'wsl@fruit.je',
     license = 'AGPL',
-    scripts = ['manage.py'],
+    scripts = ['manage.py', 'bps_monitor/check_bps'],
     packages = find_packages(),
     include_package_data = True,
     install_requires = [
