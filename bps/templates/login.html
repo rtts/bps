@@ -20,7 +20,9 @@
     Please choose how you would like to log in:
   </h1>
 
+  {% if cas_enabled %}
   <a class="button" href="{% url 'login_sso' %}?{{param}}">Log in with a Tilburg University account</a>&nbsp;&nbsp;&nbsp;
+  {% endif %}
   <a class="button" href="{% url 'login_regular' %}?{{param}}">Log in with a regular account</a>
 
   <p>
