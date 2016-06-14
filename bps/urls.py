@@ -7,10 +7,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 import autodidact.urls
 
+cas_enabled = bool(settings.CAS_SERVER_URL)
+
 def login(request):
     param = request.META['QUERY_STRING']
     return render(request, 'login.html', {
         'param': param,
+        'cas_enabled': cas_enabled,
     })
 
 @login_required
@@ -27,7 +30,7 @@ urlpatterns = [
     url(r'^logout/regular/$', django.contrib.auth.views.logout, name='logout_regular'),
 ]
 
-if settings.CAS_SERVER_URL:
+if cas_enabled:
     import cas.views
     urlpatterns += [
         url(r'^login/sso/$',cas.views.login, name='login_sso'),
