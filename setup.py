@@ -23,7 +23,13 @@ setup(
         'markdown >= 2.5.1, <= 2.6.5',
         'pillow >= 2.6.1, <= 3.1.1',
         'six >= 1.8.0, <= 1.10.0',
-        'django-admin-sortable == 2.0.12',
         'django-cleanup == 0.4.2',
+        'django-autodidact == 1.0',
+        'django-pandocfield == 0.1',
+
+        # These are for check_bps:
+        'bs4 >= 4.3.2',
+        'requests >= 2.4.3',
+        'termcolor >= 1.1.0',
     ],
 )
