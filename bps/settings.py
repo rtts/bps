@@ -161,5 +161,7 @@ DATABASES = {
     }
 }
 
+if 'test' in sys.argv:
+    MEDIA_ROOT = '/tmp/bps_unittest_files'
 if DEBUG and 'test' in sys.argv:
     DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
