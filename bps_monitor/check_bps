@@ -5,10 +5,17 @@ import argparse
 from termcolor import colored
 from bs4 import BeautifulSoup
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(epilog='The password can either be supplied on the command line or in the file "/etc/bps/testuser.passwd".')
 parser.add_argument('-u', '--username', required=True, help='A valid Uvt username')
-parser.add_argument('-p', '--password', required=True, help='A valid password')
+parser.add_argument('-p', '--password', required=False, help='A valid password')
 args = parser.parse_args()
+
+if not args.password:
+    try:
+        with open('/etc/bps/testuser.passwd') as f:
+            args.password = f.read().rstrip()
+    except IOError:
+        parser.error('Password is missing. Use --help for more information about how to use this command.')
 
 STATE_OK = 0
 STATE_WARNING = 1
