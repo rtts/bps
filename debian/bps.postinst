@@ -1,0 +1,57 @@
+#! /bin/sh
+
+set -e
+
+. /usr/share/debconf/confmodule
+
+#DEBHELPER#
+
+keyfile=/etc/bps/secret.key
+uploads=/var/lib/bps/uploads
+static=/var/lib/bps/static
+
+case $1 in configure)
+	db_get bps/daemon-user
+	users=$RET
+
+	mainuser=root
+	case $users in *[!$IFS]*[$IFS]*[!$IFS]*)
+		# multiple users, we have no sane default for $mainuser
+	;; *)
+		# if $users is empty, no assignment is done and we stick with 'root'
+		for user in $users
+		do
+			mainuser=$user
+		done
+	esac
+
+	# Generate a secret key for Django
+	if [ ! -e "$keyfile" ]
+	then
+		( umask 027; makepasswd --chars=50 > "$keyfile"; )
+		chgrp "$mainuser" "$keyfile"
+	fi
+
+	# Create run-time directories
+	if [ ! -e "$uploads" ]
+	then
+		mkdir -m 750 -p "$uploads"
+		chown "$mainuser:www-data" "$uploads"
+	fi
+
+	if [ ! -e "$static" ]
+	then
+		mkdir -p "$static"
+	fi
+
+	# Run management commands
+	for user in $users
+	do
+		su "$user" -s /bin/sh -c 'manage.py migrate'
+	done
+	manage.py collectstatic --noinput
+
+	# Insert correct dir into configuration
+	project_dir=$(python3 -c 'import os,bps; print(os.path.dirname(bps.__file__))')
+	sed -i "s:%PROJECT_DIR%:$project_dir:" /etc/apache2/conf-available/bps.conf
+esac

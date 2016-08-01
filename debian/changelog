@@ -1,10 +1,15 @@
-bps (1.0) unstable; urgency=medium
+bps (1.0~rc2) unstable; urgency=medium
 
   * Modified `bps_monitor` to check the current installation
+
+ -- Jaap Joris Vens <jj@rtts.eu>  Mon, 01 Aug 2016 16:17:25 +0200
+
+bps (1.0~rc1) unstable; urgency=medium
+
   * Added `bps_monitor` to this repository
   * Split `autodidact` and `bps` (with `uvt_user`) into two separate
     repositories
   * Rewrote the uvt_user app and BPS configuration to allow regular
     logins as well as CAS logins
 
- -- Jaap Joris Vens <jj@rtts.eu>  Mon, 01 Aug 2016 16:17:25 +0200
+ -- Jaap Joris Vens <jj@rtts.eu>  Thu, 26 May 2016 14:21:25 +0200
