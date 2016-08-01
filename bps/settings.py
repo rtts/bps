@@ -109,7 +109,12 @@ if CAS_SERVER_URL:
 if DEBUG:
     try:
         import debug_toolbar
-        INSTALLED_APPS += ('debug_toolbar',)
+        INSTALLED_APPS += ['debug_toolbar']
+    except ImportError:
+        pass
+    try:
+        import sslserver
+        INSTALLED_APPS += ['sslserver']
     except ImportError:
         pass
     try:
