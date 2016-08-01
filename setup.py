@@ -27,6 +27,9 @@ setup(
         'django-autodidact == 1.0',
         'django-pandocfield == 0.1',
 
+        # This one is optional:
+        'django-cas-client == 1.2.0',
+
         # These are for check_bps:
         'bs4 >= 4.3.2',
         'requests >= 2.4.3',
