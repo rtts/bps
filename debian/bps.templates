@@ -1,0 +1,20 @@
+Template: bps/daemon-user
+Type: text
+Default: www-data
+Description: The user that the bps process runs as.
+ BPS is a (python) program that runs as a daemon.
+ It is typically started by Apache.
+ .
+ The package needs to know the unix user account with which this daemon is
+ started so that it can run the database maintenance script.
+ .
+ Normally (if you use the configuration as supplied by the package)
+ the bps python daemon runs as the same user as Apache (www-data).
+ .
+ You may have an advanced configuration with a different user or even
+ multiple instances of BPS. In that case, enter the username or
+ usernames (separated by spaces) of the system user that runs the python
+ process.
+ .
+ If you leave this field empty, the database maintenance script is not run
+ at all.
