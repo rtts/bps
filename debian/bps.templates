@@ -1,7 +1,7 @@
 Template: bps/daemon-user
-Type: text
+Type: string
 Default: www-data
-Description: The user that the bps process runs as.
+Description: What unix user account will the bps process run as?
  BPS is a (python) program that runs as a daemon.
  It is typically started by Apache.
  .
