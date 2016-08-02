@@ -1,8 +1,9 @@
-bps (1.0~rc4) UNRELEASED; urgency=medium
+bps (1.0~rc4+nmu1) unstable; urgency=medium
 
+  [ Wessel Dankers ]
   * Fix debconf brown paper bag bug.
 
- -- Wessel Dankers <wsl@uvt.nl>  Tue, 02 Aug 2016 17:28:38 +0200
+ -- Jaap Joris Vens <jj@rtts.eu>  Tue, 02 Aug 2016 18:00:23 +0200
 
 bps (1.0~rc3) unstable; urgency=medium
 
