@@ -1,3 +1,9 @@
+bps (1.0~rc3) unstable; urgency=medium
+
+  * Debconf support to customize webserver username
+
+ -- Jaap Joris Vens <jj@rtts.eu>  Tue, 02 Aug 2016 16:59:51 +0200
+
 bps (1.0~rc2) unstable; urgency=medium
 
   * Modified `bps_monitor` to check the current installation
