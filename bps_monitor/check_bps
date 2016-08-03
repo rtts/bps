@@ -51,11 +51,7 @@ def print_docstring(func):
 def check_version():
     'Check the version number of the BPS installation to be tested'
 
-    # This single request is unverified to make it work with the
-    # development SSL server, so silence the warnings about it
-    import requests.packages.urllib3
-    requests.packages.urllib3.disable_warnings()
-    r = requests.get(HTTPS_URL, verify=False)
+    r = requests.get(HTTPS_URL)
     soup = BeautifulSoup(r.text, 'lxml')
     tag = soup.find(id='version')
     version = tag.string if tag else None

@@ -12,37 +12,25 @@ class UvtUserInline(admin.StackedInline):
 class UserAdmin(BaseUserAdmin):
     save_on_top = True
     inlines = [UvtUserInline]
-    list_display = ['username', 'user_type', 'uvt_first_name', 'uvt_full_name', 'uvt_ANR', 'uvt_email', 'is_staff']
-
-    def uvt_first_name(self, user):
-        if hasattr(user, 'uvt_user'):
-            return user.uvt_user.first_name
-        else:
-            return ''
-
-    def uvt_full_name(self, user):
-        if hasattr(user, 'uvt_user'):
-            return user.uvt_user.full_name
-        else:
-            return ''
-
-    def uvt_ANR(self, user):
-        if hasattr(user, 'uvt_user'):
-            return user.uvt_user.ANR
-        else:
-            return ''
-
-    def uvt_email(self, user):
-        if hasattr(user, 'uvt_user'):
-            return user.uvt_user.email
-        else:
-            return ''
+    list_display = ['username', 'user_type', 'first_name', 'last_name', 'anr', 'full_name', 'email', 'is_staff']
 
     def user_type(self, user):
         if hasattr(user, 'uvt_user'):
             return 'UvT user'
         else:
             return 'Regular user'
+
+    def anr(self, user):
+        if hasattr(user, 'uvt_user'):
+            return user.uvt_user.ANR
+        else:
+            return ''
+
+    def full_name(self, user):
+        if hasattr(user, 'uvt_user'):
+            return user.uvt_user.full_name
+        else:
+            return ''
 
 # Re-register UserAdmin
 admin.site.unregister(get_user_model())

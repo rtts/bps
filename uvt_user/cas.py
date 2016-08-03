@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from .models import UvtUser
-from .utils import search_ldap, LDAPError
+from .utils import search_ldap, LDAPError, strip_initials
 
 def callback(tree):
     '''This function is called after every successful CAS authentication. It creates/updates the uvt_user attribute. Because this only happens here, users without a uvt_user attribute are guaranteed to be regular users.'''
@@ -26,6 +26,11 @@ def callback(tree):
             uvt_user.email
         ) = search_ldap(username)
         uvt_user.save()
+
+        user.first_name = uvt_user.first_name
+        user.last_name = strip_initials(uvt_user.full_name)
+        user.email = uvt_user.email
+        user.save()
 
     except LDAPError:
         pass

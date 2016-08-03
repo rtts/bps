@@ -1,4 +1,6 @@
 from __future__ import unicode_literals
+
+import re
 from ldap3 import Server, Connection
 
 class LDAPError(Exception):
@@ -22,3 +24,11 @@ def search_ldap(username):
         raise LDAPError('Error in LDAP query')
 
     return result
+
+def strip_initials(full_name):
+    '''Removes leading capitals, periods, and spaces (initials) from strings, then moves any uncapitalized words (tussenvoegsels) to the rear.'''
+
+    last_name = re.sub(r'[A-Z\. ]+\. ', '', full_name)
+    last_name_reversed = re.sub(r'^([a-z ]*)(.*)', r'\2, \1', last_name)
+    last_name_without_trailing_comma = last_name_reversed.rstrip(', ') # I miss Perl
+    return last_name_without_trailing_comma

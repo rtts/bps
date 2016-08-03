@@ -23,6 +23,7 @@ setup(
         'markdown >= 2.5.1, <= 2.6.5',
         'pillow >= 2.6.1, <= 3.1.1',
         'six >= 1.8.0, <= 1.10.0',
+        'ldap3 == 1.4.0',
         'django-cleanup == 0.4.2',
         'django-autodidact == 1.0',
         'django-pandocfield == 0.1',
