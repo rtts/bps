@@ -1,3 +1,9 @@
+bps (1.0~rc6) UNRELEASED; urgency=medium
+
+  * Updated stylesheet for the new features of Autodidact 1.1
+
+ -- Jaap Joris Vens <jj@rtts.eu>  Mon, 08 Aug 2016 17:45:22 +0200
+
 bps (1.0~rc5) unstable; urgency=medium
 
   * Data migration of the uvt_user application to allow sorting by

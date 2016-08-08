@@ -340,7 +340,8 @@ section.step table.wizard {
   margin-top: -15px;
   margin-bottom: 50px; }
   section.step table.wizard td {
-    vertical-align: top; }
+    vertical-align: top;
+    height: 100%; }
   section.step table.wizard td.header {
     border-bottom: 2px solid #036;
     margin-top: -15px;
@@ -364,18 +365,47 @@ section.step table.wizard {
     section.step table.wizard td.answer textarea {
       vertical-align: top;
       width: 400px;
-      height: 70px; }
-  section.step table.wizard td.footer {
-    border-top: 2px solid #036;
-    padding-top: 15px;
-    height: 10px; }
-    section.step table.wizard td.footer input[type=submit] {
-      width: 100px;
-      padding: 5px; }
-    section.step table.wizard td.footer input.left {
-      float: left; }
-    section.step table.wizard td.footer input.right {
-      float: right; }
+      height: 70px;
+      border: none;
+      border: 1px solid #ccc; }
+section.step div.step_clarifications {
+  position: relative; }
+  section.step div.step_clarifications div.clarification {
+    height: 0;
+    overflow: hidden; }
+    section.step div.step_clarifications div.clarification img {
+      margin-top: 1em;
+      max-width: 100%; }
+  section.step div.step_clarifications input.toggle {
+    display: none; }
+  section.step div.step_clarifications input.toggle + label {
+    position: absolute;
+    top: -18px;
+    margin-left: -16px;
+    height: 14px;
+    width: 14px;
+    cursor: pointer;
+    background-image: url("/static/info.png");
+    background-size: contain; }
+  section.step div.step_clarifications input.toggle:checked + label {
+    background-image: url("/static/info2.png"); }
+  section.step div.step_clarifications input.toggle:checked + label + div.clarification {
+    height: auto;
+    border-top: 2px solid #036; }
+section.step div.step_footer {
+  border-top: 2px solid #036;
+  padding-top: 15px;
+  height: 10px; }
+  section.step div.step_footer input[type=submit] {
+    width: 100px;
+    padding: 5px; }
+  section.step div.step_footer input.left {
+    float: left; }
+  section.step div.step_footer input.right {
+    float: right; }
+section.step div.step_progress {
+  clear: both;
+  margin-top: 4em; }
 section.step ul.progress {
   list-style: none;
   margin: 0;

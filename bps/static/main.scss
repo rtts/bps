@@ -472,6 +472,7 @@ section.step {
 
     td {
       vertical-align: top;
+      height: 100%;
     }
     td.header {
       border-bottom: 2px solid #036;
@@ -506,27 +507,67 @@ section.step {
 	vertical-align: top;
 	width: 400px;
 	height: 70px;
+        border: none;
+        border: 1px solid $bordergrey;
       }
     }
+  }
 
-    td.footer {
-      border-top: 2px solid #036;
-      padding-top: 15px;
-      height: 10px;
-
-      input[type=submit] {
-	width: 100px;
-	padding: 5px;
-      }
-
-      input.left {
-	float: left;
-      }
-
-      input.right {
-	float: right;
+  div.step_clarifications {
+    position: relative;
+    div.clarification {
+      height: 0;
+      overflow: hidden;
+      img {
+        margin-top: 1em;
+        max-width: 100%;
       }
     }
+    input.toggle {
+      display: none;
+    }
+    input.toggle + label {
+      position: absolute;
+      top: -18px;
+      // left is set inline
+      margin-left: -16px;
+      height: 14px;
+      width: 14px;
+      cursor: pointer;
+      background-image: url('/static/info.png');
+      background-size: contain;
+    }
+    input.toggle:checked + label {
+      background-image: url('/static/info2.png')
+    }
+    input.toggle:checked + label + div.clarification {
+      height: auto;
+      border-top: 2px solid $darkblue;
+    }
+  }
+
+  div.step_footer {
+    border-top: 2px solid #036;
+    padding-top: 15px;
+    height: 10px;
+
+    input[type=submit] {
+      width: 100px;
+      padding: 5px;
+    }
+
+    input.left {
+      float: left;
+    }
+
+    input.right {
+      float: right;
+    }
+  }
+
+  div.step_progress {
+    clear: both;
+    margin-top: 4em;
   }
 
   $step_height: 20px;
