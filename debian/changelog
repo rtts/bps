@@ -1,8 +1,9 @@
 bps (1.0~rc6) UNRELEASED; urgency=medium
 
   * Removed stylesheet as it has been moved to Autodidact 1.1
-  * Upgraded dependencies to Autodidact 1.1 and Pandocfield 0.2.1
+  * Upgraded dependency to Autodidact 1.1
   * Included missing data migration
+  * Removed some dependencies because Autodidact already has them
 
  -- Jaap Joris Vens <jj@rtts.eu>  Mon, 08 Aug 2016 17:45:22 +0200
 
