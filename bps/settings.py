@@ -144,7 +144,7 @@ LOGGING = {
          'level': 'INFO',
          'class': 'logging.handlers.SysLogHandler',
          'facility': 'local7',
-         'address': '/dev/log',
+#         'address': '/dev/log',
        },
     },
     'loggers': {

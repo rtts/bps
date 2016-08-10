@@ -1,9 +1,10 @@
-bps (1.0~rc6) UNRELEASED; urgency=medium
+bps (1.0~rc6) unstable; urgency=medium
 
   * Removed stylesheet as it has been moved to Autodidact 1.1
   * Upgraded dependency to Autodidact 1.1
   * Included missing data migration
   * Removed some dependencies because Autodidact already has them
+  * Broke logging by request of Joost
 
  -- Jaap Joris Vens <jj@rtts.eu>  Mon, 08 Aug 2016 17:45:22 +0200
 
