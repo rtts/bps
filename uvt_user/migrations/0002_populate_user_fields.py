@@ -18,6 +18,9 @@ def populate_user_fields(apps, schema_editor):
         uvt_user.user.email = uvt_user.email
         uvt_user.user.save()
 
+def noop(*args):
+    return None
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -25,5 +28,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(populate_user_fields, migrations.RunPython.noop),
+        migrations.RunPython(populate_user_fields, noop),
     ]
