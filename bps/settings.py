@@ -106,23 +106,6 @@ if CAS_SERVER_URL:
     #MIDDLEWARE_CLASSES += ['cas.middleware.CASMiddleware']
     CAS_RESPONSE_CALLBACKS = ['uvt_user.cas.callback']
 
-if DEBUG:
-    try:
-        import debug_toolbar
-        INSTALLED_APPS += ['debug_toolbar']
-    except ImportError:
-        pass
-    try:
-        import sslserver
-        INSTALLED_APPS += ['sslserver']
-    except ImportError:
-        pass
-    try:
-        import livereload.middleware
-        MIDDLEWARE_CLASSES += ('livereload.middleware.LiveReloadScript',)
-    except ImportError:
-        pass
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

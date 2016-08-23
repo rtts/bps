@@ -1,57 +1,17 @@
-bps (1.0~rc8) unstable; urgency=medium
+bps (1.0) unstable; urgency=medium
 
-  * Upgraded dependency on Autodidact
-
- -- Jaap Joris Vens <jj@rtts.eu>  Tue, 16 Aug 2016 14:29:02 +0200
-
-bps (1.0~rc7) unstable; urgency=medium
-
+  * Updated dependencies
   * Implemented the noop() function which is not present in Django 1.7
-
- -- Jaap Joris Vens <jj@rtts.eu>  Tue, 16 Aug 2016 11:04:25 +0200
-
-bps (1.0~rc6) unstable; urgency=medium
-
-  * Removed stylesheet as it has been moved to Autodidact 1.1
-  * Upgraded dependency to Autodidact 1.1
-  * Included missing data migration
-  * Removed some dependencies because Autodidact already has them
+  * Removed stylesheet as it has been moved to Autodidact
   * Broke logging by request of Joost
-
- -- Jaap Joris Vens <jj@rtts.eu>  Mon, 08 Aug 2016 17:45:22 +0200
-
-bps (1.0~rc5) unstable; urgency=medium
-
   * Data migration of the uvt_user application to allow sorting by
     first and last name
-
- -- Jaap Joris Vens <jj@rtts.eu>  Wed, 03 Aug 2016 13:52:53 +0200
-
-bps (1.0~rc4+nmu1) unstable; urgency=medium
-
-  [ Wessel Dankers ]
-  * Fix debconf brown paper bag bug.
-
- -- Jaap Joris Vens <jj@rtts.eu>  Tue, 02 Aug 2016 18:00:23 +0200
-
-bps (1.0~rc3) unstable; urgency=medium
-
   * Debconf support to customize webserver username
-
- -- Jaap Joris Vens <jj@rtts.eu>  Tue, 02 Aug 2016 16:59:51 +0200
-
-bps (1.0~rc2) unstable; urgency=medium
-
   * Modified `bps_monitor` to check the current installation
-
- -- Jaap Joris Vens <jj@rtts.eu>  Mon, 01 Aug 2016 16:17:25 +0200
-
-bps (1.0~rc1) unstable; urgency=medium
-
   * Added `bps_monitor` to this repository
   * Split `autodidact` and `bps` (with `uvt_user`) into two separate
     repositories
   * Rewrote the uvt_user app and BPS configuration to allow regular
     logins as well as CAS logins
 
- -- Jaap Joris Vens <jj@rtts.eu>  Thu, 26 May 2016 14:21:25 +0200
+ -- Jaap Joris Vens <jj@rtts.eu>  Tue, 23 Aug 2016 12:50:53 +0200
