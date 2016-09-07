@@ -1,3 +1,9 @@
+bps (1.1) UNRELEASED; urgency=medium
+
+  * Display useful names for non-Uvt users
+
+ -- Jaap Joris Vens <jj@rtts.eu>  Wed, 07 Sep 2016 14:01:11 +0200
+
 bps (1.0) unstable; urgency=medium
 
   * Updated dependencies

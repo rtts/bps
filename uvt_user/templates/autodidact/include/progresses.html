@@ -13,7 +13,7 @@
     </a></td>
     <td>
       <small>
-        {{student.uvt_user.full_name}}
+        {% if student.uvt_user.full_name %}{{student.uvt_user.full_name}}{% else %}{{student.get_full_name}}{% endif %}
       </small>
     </td>
     {% for percentage in student.progress %}
