@@ -20,7 +20,7 @@ if not args.password:
     except IOError:
         parser.error('Password is missing. Use --help for more information about how to use this command.')
 
-BPS_VERSION = '1.0'
+BPS_VERSION = '1.0.1'
 STATE_OK = 0
 STATE_WARNING = 1
 STATE_CRITICAL = 2
