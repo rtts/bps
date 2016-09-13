@@ -18,8 +18,12 @@ def search_ldap(username):
         server = Server('ldaps.uvt.nl', use_ssl=True)
         conn = Connection(server, auto_bind=True)
         conn.search(baseDN, searchFilter, attributes=attributes)
+        response = conn.response[0]['attributes']
         for a in attributes:
-            result += (conn.response[0]['attributes'][a][0], )
+            if a in response:
+                result += (response[a][0],)
+            else:
+                result += ('',)
     except Exception:
         raise LDAPError('Error in LDAP query')
 
