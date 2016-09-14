@@ -1,3 +1,9 @@
+bps (1.0.2) unstable; urgency=medium
+
+  * Fixed incorrect dependency on Autodidact
+
+ -- Jaap Joris Vens <jj@rtts.eu>  Wed, 14 Sep 2016 15:59:20 +0200
+
 bps (1.0.1) unstable; urgency=medium
 
   * Display useful names for non-Uvt users
