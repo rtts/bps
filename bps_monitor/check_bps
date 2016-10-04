@@ -53,7 +53,7 @@ def check_version():
 
     r = requests.get(HTTPS_URL)
     soup = BeautifulSoup(r.text, 'lxml')
-    tag = soup.find(id='version')
+    tag = soup.find(id='bps_version')
     version = tag.string if tag else None
 
     check('The installation’s version number ({}) equals the target version number ({})'.format(version, BPS_VERSION), version == BPS_VERSION)
