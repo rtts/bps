@@ -8,7 +8,7 @@ if sys.argv[-1] == 'test':
 
 setup(
     name = 'bps',
-    version = '1.0.1',
+    version = '1.0.3',
     url = 'https://github.com/JaapJoris/bps',
     author = 'Jaap Joris Vens',
     author_email = 'jj@rtts.eu',
