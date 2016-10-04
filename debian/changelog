@@ -1,8 +1,9 @@
 bps (1.0.3) UNRELEASED; urgency=medium
 
-  * Don't override the session progress template anymore
+  * Removed Autodidact template overrides
     (requires Autodidact >= 1.4.0)
   * Updated dependency on Autodidact
+  * Keep better track of version number
 
  -- Jaap Joris Vens <jj@rtts.eu>  Tue, 04 Oct 2016 16:22:26 +0200
 
