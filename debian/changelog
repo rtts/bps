@@ -1,4 +1,4 @@
-bps (1.0.3) UNRELEASED; urgency=medium
+bps (1.0.3~rc1) stable; urgency=medium
 
   * Removed Autodidact template overrides
     (requires Autodidact >= 1.4.0)
