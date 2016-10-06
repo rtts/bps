@@ -14,7 +14,7 @@
 {% block content %}
 
 <section>
-  <h1>Log in with regular account</h1>
+  <h1>Log in with a regular account</h1>
 
   <p>
     Please supply your username and password to log in.
@@ -24,7 +24,7 @@
   <p style="color:red">Your username and password didn't match. Please try again.</p>
   {% endif %}
 
-  <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+  <form method="post" action="{% url 'login_regular' %}">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{ next }}" />
     <table>
