@@ -1,18 +1,12 @@
-bps (1.0.3~rc2) stable; urgency=medium
+bps (1.0.3) unstable; urgency=medium
 
   * Updated dependency on Autodidact
   * Fixed bug in login template
-
- -- Jaap Joris Vens <jj@rtts.eu>  Thu, 06 Oct 2016 13:21:00 +0200
-
-bps (1.0.3~rc1) stable; urgency=medium
-
   * Removed Autodidact template overrides
     (requires Autodidact >= 1.4.0)
-  * Updated dependency on Autodidact
   * Keep better track of version number
 
- -- Jaap Joris Vens <jj@rtts.eu>  Tue, 04 Oct 2016 16:22:26 +0200
+ -- Jaap Joris Vens <jj@rtts.eu>  Tue, 11 Oct 2016 15:16:35 +0200
 
 bps (1.0.2) unstable; urgency=medium
 
