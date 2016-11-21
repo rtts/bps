@@ -38,6 +38,7 @@ if cas_enabled:
     ]
 
 urlpatterns += [
+    url(r'^admin/login/$', login, name='admin:login'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include(autodidact.urls)),
 ]

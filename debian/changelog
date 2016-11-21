@@ -1,3 +1,9 @@
+bps (1.0.4) UNRELEASED; urgency=medium
+
+  * Redirect admin login requests to central login page
+
+ -- Jaap Joris Vens <jj@rtts.eu>  Mon, 21 Nov 2016 15:17:12 +0100
+
 bps (1.0.3) unstable; urgency=medium
 
   * Updated dependency on Autodidact
