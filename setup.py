@@ -24,6 +24,7 @@ setup(
         'pillow >= 2.6.1, <= 3.1.1',
         'six >= 1.8.0, <= 1.10.0',
         'ldap3 == 1.4.0',
+        'XlsxWriter == 0.9.6',
         'django-cleanup == 0.4.2',
         'django-autodidact == 1.0',
         'django-pandocfield == 0.1',
