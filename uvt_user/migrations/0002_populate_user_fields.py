@@ -3,20 +3,21 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
-from uvt_user.utils import strip_initials
 
-def populate_user_fields(apps, schema_editor):
-    '''
-    Populate regular user fields with data from Uvt Users.
-    This denormalization allows sorting by first name, last name, and email address.
-    '''
-    UvtUser = apps.get_model("uvt_user", "UvtUser")
+# from uvt_user.utils import strip_initials
 
-    for uvt_user in UvtUser.objects.all():
-        uvt_user.user.first_name = uvt_user.first_name
-        uvt_user.user.last_name = strip_initials(uvt_user.full_name)
-        uvt_user.user.email = uvt_user.email
-        uvt_user.user.save()
+# def populate_user_fields(apps, schema_editor):
+#     '''
+#     Populate regular user fields with data from Uvt Users.
+#     This denormalization allows sorting by first name, last name, and email address.
+#     '''
+#     UvtUser = apps.get_model("uvt_user", "UvtUser")
+
+#     for uvt_user in UvtUser.objects.all():
+#         uvt_user.user.first_name = uvt_user.first_name
+#         uvt_user.user.last_name = strip_initials(uvt_user.full_name)
+#         uvt_user.user.email = uvt_user.email
+#         uvt_user.user.save()
 
 def noop(*args):
     return None
@@ -28,5 +29,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(populate_user_fields, noop),
+        migrations.RunPython(noop, noop),
     ]

@@ -1,5 +1,8 @@
 bps (1.0.4) UNRELEASED; urgency=medium
 
+  * Updated uvt_user app to retrieve `emplId`s from LDAP
+  * Added missing dependencies
+  * Change timezone to Europe/Amsterdam
   * Redirect admin login requests to central login page
 
  -- Jaap Joris Vens <jj@rtts.eu>  Mon, 21 Nov 2016 15:17:12 +0100

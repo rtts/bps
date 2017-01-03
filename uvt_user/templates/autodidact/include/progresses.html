@@ -1,7 +1,7 @@
 <table>
   <tr>
-    <th>ANR</th>
-    <th>Naam</th>
+    <th>emplId</th>
+    <th>Name</th>
     {% for assignment in assignments %}
     <th>Assignment {{forloop.counter}}</th>
     {% endfor %}
@@ -9,7 +9,7 @@
   {% for student in students %}
   <tr>
     <td><a href="{% url 'progress' course.slug session.nr student.username %}">
-      {% if student.uvt_user.ANR %}{{student.uvt_user.ANR}}{% else %}(unknown){% endif %}
+      {% if student.uvt_user.emplId %}{{student.uvt_user.emplId}}{% else %}(unknown){% endif %}
     </a></td>
     <td>
       <small>
