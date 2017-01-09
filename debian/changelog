@@ -1,6 +1,7 @@
 bps (1.0.4) UNRELEASED; urgency=medium
 
   * Updated uvt_user app to retrieve `emplId`s from LDAP
+  * Data migration that retrieves emplId's for all existing users from LDAP
   * Added missing dependencies
   * Change timezone to Europe/Amsterdam
   * Redirect admin login requests to central login page
