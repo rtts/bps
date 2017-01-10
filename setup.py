@@ -26,7 +26,7 @@ setup(
         'ldap3 == 1.4.0',
         'XlsxWriter == 0.9.6',
         'django-cleanup == 0.4.2',
-        'django-autodidact >= 1.4.0',
+        'autodidact >= 1.4.0',
 
         # This one is optional:
         'django-cas-client == 1.2.0',
