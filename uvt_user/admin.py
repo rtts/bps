@@ -12,7 +12,7 @@ class UvtUserInline(admin.StackedInline):
 class UserAdmin(BaseUserAdmin):
     save_on_top = True
     inlines = [UvtUserInline]
-    list_display = ['username', 'user_type', 'first_name', 'last_name', 'anr', 'full_name', 'email', 'is_staff']
+    list_display = ['username', 'last_login', 'emplid', 'user_type', 'first_name', 'last_name', 'email', 'is_staff']
 
     def user_type(self, user):
         if hasattr(user, 'uvt_user'):
@@ -20,11 +20,11 @@ class UserAdmin(BaseUserAdmin):
         else:
             return 'Regular user'
 
-    def anr(self, user):
-        if hasattr(user, 'uvt_user'):
-            return user.uvt_user.ANR
+    def emplid(self, user):
+        if hasattr(user, 'uvt_user') and user.uvt_user.emplId:
+            return user.uvt_user.emplId
         else:
-            return ''
+            return 'n/a'
 
     def full_name(self, user):
         if hasattr(user, 'uvt_user'):
