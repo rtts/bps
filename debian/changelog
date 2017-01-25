@@ -1,5 +1,6 @@
 bps (1.0.4) UNRELEASED; urgency=medium
 
+  * Remove Python 2 compatibility
   * Updated uvt_user app to retrieve `emplId`s from LDAP
   * Data migration that retrieves emplId's for all existing users from LDAP
   * Added missing dependencies

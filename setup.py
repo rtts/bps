@@ -20,9 +20,7 @@ setup(
     include_package_data = True,
     install_requires = [
         'django >= 1.7.7, <= 1.9.4',
-        'markdown >= 2.5.1, <= 2.6.5',
         'pillow >= 2.6.1, <= 3.1.1',
-        'six >= 1.8.0, <= 1.10.0',
         'ldap3 == 1.4.0',
         'XlsxWriter == 0.9.6',
         'django-cleanup == 0.4.2',

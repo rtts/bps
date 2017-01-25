@@ -1,6 +1,6 @@
 import os, sys
 import logging
-from six.moves import configparser
+import configparser
 from django.core.exceptions import ImproperlyConfigured
 from autodidact.utils import random_string
 from .utils import read
