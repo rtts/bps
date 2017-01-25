@@ -1,4 +1,4 @@
-bps (1.0.4) UNRELEASED; urgency=medium
+bps (1.0.4~rc1) stable; urgency=medium
 
   * Remove Python 2 compatibility
   * Updated uvt_user app to retrieve `emplId`s from LDAP
