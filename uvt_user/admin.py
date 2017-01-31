@@ -6,7 +6,7 @@ from .models import UvtUser
 
 class UvtUserInline(admin.StackedInline):
     model = UvtUser
-    readonly_fields = ['first_name', 'full_name', 'ANR', 'email']
+    readonly_fields = ['first_name', 'last_name', 'full_name', 'ANR', 'emplId', 'email']
     verbose_name_plural = 'Uvt user information'
 
 class UserAdmin(BaseUserAdmin):
