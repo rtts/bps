@@ -1,4 +1,4 @@
-bps (1.0.4~rc1) stable; urgency=medium
+bps (1.0.4) stable; urgency=medium
 
   * Remove Python 2 compatibility
   * Updated uvt_user app to retrieve `emplId`s from LDAP
@@ -8,7 +8,7 @@ bps (1.0.4~rc1) stable; urgency=medium
   * Change timezone to Europe/Amsterdam
   * Redirect admin login requests to central login page
 
- -- Jaap Joris Vens <jj@rtts.eu>  Mon, 21 Nov 2016 15:17:12 +0100
+ -- Jaap Joris Vens <jj@rtts.eu>  Tue, 31 Jan 2017 16:04:03 +0100
 
 bps (1.0.3) unstable; urgency=medium
 
