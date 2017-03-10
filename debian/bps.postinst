@@ -10,6 +10,8 @@ keyfile=/etc/bps/secret.key
 uploads=/var/lib/bps/uploads
 static=/var/lib/bps/static
 
+echo "[DEBUG] $0 $*" >&2
+
 case $1 in configure)
 	db_get bps/daemon-user
 	users=$RET
@@ -44,14 +46,16 @@ case $1 in configure)
 		mkdir -p "$static"
 	fi
 
+	# Insert correct dir into configuration
+	project_dir=$(python3 -c 'import os,bps; print(os.path.dirname(bps.__file__))')
+	sed -i "s:%PROJECT_DIR%:$project_dir:" /etc/apache2/conf-available/bps.conf
+esac
+
+case $1 in configure|triggered)
 	# Run management commands
 	for user in $users
 	do
 		su "$user" -s /bin/sh -c 'manage.py migrate'
 	done
 	manage.py collectstatic --noinput
-
-	# Insert correct dir into configuration
-	project_dir=$(python3 -c 'import os,bps; print(os.path.dirname(bps.__file__))')
-	sed -i "s:%PROJECT_DIR%:$project_dir:" /etc/apache2/conf-available/bps.conf
 esac
