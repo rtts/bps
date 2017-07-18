@@ -1,3 +1,9 @@
+bps (1.0.5) UNRELEASED; urgency=medium
+
+  * Register a trigger to be notified when autodidact is updated.
+
+ -- Wessel Dankers <wsl@uvt.nl>  Fri, 10 Mar 2017 15:08:16 +0100
+
 bps (1.0.4) stable; urgency=medium
 
   * Remove Python 2 compatibility
