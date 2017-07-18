@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block navigation %}
+  <ul>
+    <li class="visitedPage"><a href="/">Home</a></li>
+    <li class="visitedPage"><a href="{% url 'manage' %}">Management console</a></li>
+    <li class="visitedPage"><a href="{% url 'manage_student' %}">Look up student</a></li>
+    <li class="currentPage"><a href="">Student details</a></li>
+  </ul>
+{% endblock %}
+
+{% block content %}
+  <section class="students">
+    <h2>Student details</h2>
+    <dl>
+      <dt>Full name:</dt>
+      <dd>{{student.uvt_user.full_name|default:'[unavailable]'}}</dd>
+      <dt>First name:</dt>
+      <dd>{{student.uvt_user.first_name|default:'[unavailable]'}}</dd>
+      <dt>Student number:</dt>
+      <dd>{{student.uvt_user.emplId|default:'[unavailable]'}}</dd>
+      <dt>Email address:</dt>
+      <dd>{{student.uvt_user.email|default:'[unavailable]'}}</dd>
+    </dl>
+
+    <h2>Attended sessions</h2>
+    <ul>
+      {% for class in student.attends.all %}
+        <li><a href="{% url 'progress' class.session.course.slug class.session.number student.username %}">{{class.session}}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endblock %}

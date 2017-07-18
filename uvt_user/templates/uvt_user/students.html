@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block navigation %}
+  <ul>
+    <li class="visitedPage"><a href="/">Home</a></li>
+    <li class="visitedPage"><a href="{% url 'manage' %}">Management console</a></li>
+    <li class="visitedPage"><a href="{% url 'manage_student' %}">Look up student</a></li>
+    <li class="currentPage"><a href="">Search results</a></li>
+  </ul>
+{% endblock %}
+
+{% block content %}
+  <section class="students">
+    {% with nr=students|length %}
+      <h1>{{nr}} student{{nr|pluralize}} matching your query</h1>
+    {% endwith %}
+    <table>
+      <tr>
+        <th>Student</th>
+        <th>Student number</th>
+        <th>Email</th>
+      </tr>
+      {% for student in students %}
+        <tr>
+          <td>
+            <a href="{% url 'student_details' student.user.username %}">{{student.full_name|default:'[unavailable]'}}</a>
+            <small>(<i>{{student.first_name|default:'[unavailable]'}}</i>)</small></td>
+          <td>{{student.emplId|default:'[unavailable]'}}</td>
+          <td>{{student.email|default:'[unavailable]'}}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </section>
+{% endblock %}
