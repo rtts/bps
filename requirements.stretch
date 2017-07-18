@@ -1,0 +1,15 @@
+# This requirements file specifies the same versions as those that are available in Debian Stretch
+
+Django==1.10.7
+psycopg2==2.6.2
+Pillow==4.0.0
+ldap3==1.2.2
+XlsxWriter==0.9.6
+django-cleanup==0.4.2
+django-cas-client==1.2.0
+beautifulsoup4==4.5.3
+requests==2.12.4
+termcolor==1.1.0
+bleach==2.0
+sqlparse==0.2.2
+html5lib==0.999999999

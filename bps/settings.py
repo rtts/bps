@@ -86,17 +86,6 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-TEMPLATE_CONTEXT_PROCESSORS = [
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.core.context_processors.tz',
-    'django.core.context_processors.request',
-    'django.contrib.auth.context_processors.auth',
-    'django.contrib.messages.context_processors.messages',
-]
-
 if CAS_SERVER_URL:
     AUTHENTICATION_BACKENDS = [
         'django.contrib.auth.backends.ModelBackend',
@@ -113,10 +102,16 @@ TEMPLATES = [
         'DIRS': TEMPLATE_DIRS,
         'OPTIONS': {
             'debug': DEBUG,
-            'context_processors': TEMPLATE_CONTEXT_PROCESSORS,
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ]
         },
     },
 ]
+
 SILENCED_SYSTEM_CHECKS = ['1_8.W001']
 
 LOGGING = {
