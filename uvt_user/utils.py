@@ -24,7 +24,9 @@ def search_ldap(username):
                 result += (response[a][0],)
             else:
                 result += ('',)
+    except IndexError:
+        raise LDAPError('Username not found')
     except Exception:
-        raise LDAPError('Error in LDAP query')
+        raise LDAPError('Unknown error in LDAP query')
 
     return result

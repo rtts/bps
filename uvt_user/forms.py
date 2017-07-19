@@ -1,5 +1,7 @@
 from django import forms
+from django.db import transaction
 from django.conf import settings
+from django.contrib.auth.models import Group
 from .models import UvtUser
 
 class LookupStudentForm(forms.Form):
@@ -31,3 +33,15 @@ class LookupEmployeeForm(forms.Form):
             email__icontains=self.cleaned_data['email'],
         ).order_by('last_name')
         return employees
+
+class ModifyEmployeeForm(forms.Form):
+    is_staff = forms.BooleanField(label='Is staff member', required=False)
+    groups = forms.ModelMultipleChoiceField(label='Access Levels', queryset=Group.objects.order_by('name'), widget=forms.CheckboxSelectMultiple)
+
+    def save(self, user):
+        user.is_staff = self.cleaned_data['is_staff']
+        user.save()
+
+        with transaction.atomic():
+            user.groups.clear()
+            user.groups.add(*self.cleaned_data['groups'])

@@ -6,6 +6,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 import autodidact.urls
+import uvt_user.urls
 
 cas_enabled = bool(settings.CAS_SERVER_URL)
 
@@ -40,6 +41,7 @@ if cas_enabled:
 urlpatterns += [
     url(r'^admin/login/$', login, name='admin:login'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^manage/', include(uvt_user.urls)),
     url(r'^', include(autodidact.urls)),
 ]
 

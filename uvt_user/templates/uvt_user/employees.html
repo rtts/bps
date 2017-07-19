@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block navigation %}
   <ul>
     <li class="visitedPage"><a href="/">Home</a></li>
     <li class="visitedPage"><a href="{% url 'manage' %}">Management console</a></li>
-    <li class="visitedPage"><a href="{% url 'manage_employee' %}">Add staff member</a></li>
+    <li class="visitedPage"><a href="{% url 'manage_employee' %}">Manage staff members</a></li>
     <li class="currentPage"><a href="">Search results</a></li>
   </ul>
 {% endblock %}
@@ -16,6 +17,7 @@
     {% endwith %}
     <table>
       <tr>
+        <th>Staff</th>
         <th>Employee</th>
         <th>Employee number</th>
         <th>Email</th>
@@ -23,7 +25,11 @@
       {% for employee in employees %}
         <tr>
           <td>
-            {{employee.full_name|default:'[unavailable]'}}
+            {% if employee.user.is_staff %}
+              <img src="{% static 'admin/img/icon-yes.svg' %}">
+            {% endif %}
+          <td>
+            <a href="{% url 'employee_details' employee.user.username %}">{{employee.full_name|default:'[unavailable]'}}</a>
             <small>(<i>{{employee.first_name|default:'[unavailable]'}}</i>)</small></td>
           <td>{{employee.ANR|default:'[unavailable]'}}</td>
           <td>{{employee.email|default:'[unavailable]'}}</td>
