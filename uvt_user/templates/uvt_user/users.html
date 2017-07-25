@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navigation %}
+  <ul>
+    <li class="visitedPage"><a href="/">Home</a></li>
+    <li class="visitedPage"><a href="{% url 'manage' %}">Management console</a></li>
+    <li class="visitedPage"><a href="{% url 'lookup_user' %}">Lookup user</a></li>
+    <li class="currentPage"><a href="">Search results</a></li>
+  </ul>
+{% endblock %}
+
+{% block content %}
+  <section class="students">
+    {% with nr=users|length %}
+      <h1>{{nr}} user{{nr|pluralize}} matching your query</h1>
+    {% endwith %}
+    <table>
+      <tr>
+        <th>Staff</th>
+        <th>User</th>
+        <th>User number</th>
+        <th>Email</th>
+      </tr>
+      {% for user in users %}
+        <tr>
+          <td>
+            {% if user.user.is_staff %}
+              <img src="{% static 'admin/img/icon-yes.svg' %}">
+            {% endif %}
+            <td>
+              {% if perms.auth.change_permission %}
+                <a href="{% url 'user_details' user.user.username %}">{{user.full_name|default:'[unavailable]'}}</a>
+              {% else %}
+                <a href="{% url 'user_details_readonly' user.user.username %}">{{user.full_name|default:'[unavailable]'}}</a>
+              {% endif %}
+            <small>(<i>{{user.first_name|default:'[unavailable]'}}</i>)</small></td>
+          <td>{{user.ANR|default:'[unavailable]'}}</td>
+          <td>{{user.email|default:'[unavailable]'}}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </section>
+{% endblock %}

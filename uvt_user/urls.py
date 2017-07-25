@@ -3,8 +3,7 @@ from .views import *
 
 urlpatterns = [
     url(r'^$', manage, name='manage'),
-    url(r'^student/$', manage_student, name='manage_student'),
-    url(r'^employee/$', manage_employee, name='manage_employee'),
-    url(r'^student/([^/]+)/$', student_details, name='student_details'),
-    url(r'^employee/([^/]+)/$', employee_details, name='employee_details'),
+    url(r'^user/$', lookup_user, name='lookup_user'),
+    url(r'^user/([^/]+)/$', user_details_readonly, name='user_details_readonly'),
+    url(r'^user/([^/]+)/change/$', user_details, name='user_details'),
 ]

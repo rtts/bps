@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block navigation %}
+  <ul>
+    <li class="visitedPage"><a href="/">Home</a></li>
+    <li class="visitedPage"><a href="{% url 'manage' %}">Management console</a></li>
+    <li class="visitedPage"><a href="{% url 'lookup_user' %}">Lookup user</a></li>
+    <li class="currentPage"><a href="">User details</a></li>
+  </ul>
+{% endblock %}
+
+{% block content %}
+  <section class="students">
+    <h2>User details</h2>
+    <dl>
+      <dt>Full name:</dt>
+      <dd>{{user.uvt_user.full_name|default:'[unavailable]'}}</dd>
+      <dt>First name:</dt>
+      <dd>{{user.uvt_user.first_name|default:'[unavailable]'}}</dd>
+      <dt>Student number <small><code>EmplId</code></small>:</dt>
+      <dd>{{user.uvt_user.emplId|default:'[unavailable]'}}</dd>
+      <dt>Employee number <small><code>ANR</code></small>:</dt>
+      <dd>{{user.uvt_user.ANR|default:'[unavailable]'}}</dd>
+      <dt>Email address:</dt>
+      <dd>{{user.uvt_user.email|default:'[unavailable]'}}</dd>
+    </dl>
+
+    <h2>Permissions</h2>
+    <form action="" method="POST" class="management">
+      {% csrf_token %}
+      {{form.as_p}}
+      {% if perms.auth.change_permission %}
+        <input type="submit" value="Save changes">
+      {% endif %}
+    </form>
+
+    {% if user.is_staff %}
+      <h2>Taught sessions</h2>
+
+      <table>
+        <tr>
+          <th>Date</th>
+          <th>Class number</th>
+          <th>Session</th>
+        </tr>
+
+        {% for class in user.teaches.all %}
+          <tr>
+            <td>{{class.date}}</td>
+            <td>{{class.number}}</td>
+            <td>{{class.session}}</td>
+          </tr>
+        {% endfor %}
+      </table>
+
+    {% else %}
+      <h2>Attended sessions</h2>
+      <table>
+        <tr>
+          <th>Date</th>
+          <th>Class number</th>
+          <th>Session</th>
+        </tr>
+
+        {% for class in user.attends.all %}
+          <tr>
+            <td><a href="{% url 'progress' class.session.course.slug class.session.number user.username %}">{{class.session}}</a></td>
+            <td>{{class.number}}</td>
+            <td>{{class.date}}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% endif %}
+
+  </section>
+{% endblock %}

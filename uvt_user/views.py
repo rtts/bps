@@ -11,60 +11,55 @@ def manage(request):
     })
 
 @staff_member_required
-def manage_student(request):
+def lookup_user(request):
     if request.method == 'POST':
-        form = LookupStudentForm(request.POST)
+        form = LookupUserForm(request.POST)
         if form.is_valid():
-            students = form.lookup()
-            return render(request, 'uvt_user/students.html', {
-                'students': students,
+            users = form.lookup()
+            return render(request, 'uvt_user/users.html', {
+                'users': users,
             })
     else:
-        form = LookupStudentForm()
+        form = LookupUserForm()
 
-    return render(request, 'uvt_user/manage_student.html', {
+    return render(request, 'uvt_user/lookup_user.html', {
         'form': form,
     })
 
 @staff_member_required
-def manage_employee(request):
-    if request.method == 'POST':
-        form = LookupEmployeeForm(request.POST)
-        if form.is_valid():
-            employees = form.lookup()
-            return render(request, 'uvt_user/employees.html', {
-                'employees': employees,
-            })
-    else:
-        form = LookupEmployeeForm()
+def user_details_readonly(request, username):
+    user = get_object_or_404(get_user_model(), username=username)
 
-    return render(request, 'uvt_user/manage_employee.html', {
+    form = ModifyUserForm(initial={
+        'is_staff': user.is_staff,
+        'groups': user.groups.all()
+    })
+
+    for key in form.fields.keys():
+        form.fields[key].disabled = True
+
+    return render(request, 'uvt_user/user.html', {
         'form': form,
+        'user': user,
     })
 
 @staff_member_required
-def student_details(request, username):
-    student = get_object_or_404(get_user_model(), username=username)
-    return render(request, 'uvt_user/student.html', {
-        'student': student,
-    })
-
-@staff_member_required
-def employee_details(request, username):
-    employee = get_object_or_404(get_user_model(), username=username)
+@permission_required('auth.change_permission')
+def user_details(request, username):
+    user = get_object_or_404(get_user_model(), username=username)
 
     if request.method == 'POST':
-        form = ModifyEmployeeForm(request.POST)
+        form = ModifyUserForm(request.POST)
         if form.is_valid():
-            form.save(employee)
-            return redirect('employee_details', username)
+            form.save(user)
+            return redirect('user_details', username)
     else:
-        form = ModifyEmployeeForm(initial={
-            'is_staff': employee.is_staff,
-            'groups': employee.groups.all()
+        form = ModifyUserForm(initial={
+            'is_staff': user.is_staff,
+            'groups': user.groups.all()
         })
 
-    return render(request, 'uvt_user/employee.html', {
+    return render(request, 'uvt_user/user.html', {
         'form': form,
-        'employee': employee,
+        'user': user,
     })

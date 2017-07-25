@@ -23,11 +23,5 @@
       <dd>{{student.uvt_user.email|default:'[unavailable]'}}</dd>
     </dl>
 
-    <h2>Attended sessions</h2>
-    <ul>
-      {% for class in student.attends.all %}
-        <li><a href="{% url 'progress' class.session.course.slug class.session.number student.username %}">{{class.session}}</a></li>
-      {% endfor %}
-    </ul>
   </section>
 {% endblock %}

@@ -37,8 +37,19 @@ AUTODIDACT_GROUPS = [
         'add_presentation',
         'change_presentation',
         'delete_presentation'
+        'change_course',
     ],
      '3. Master: Edit, add and remove complete sessions'
+    ),
+    ([
+        'add_course',
+        'change_course',
+        'delete_course',
+        'add_programme',
+        'change_programme',
+        'delete_programme'
+    ],
+     '4. Administrator: Manage courses and programmes'
     ),
 ]
 
@@ -46,7 +57,7 @@ AUTH_GROUPS = [
     ([
         'change_permission',
     ],
-     '4. Administrator: Manage staff members'
+     '5. Director: Assign staff members'
     ),
 ]
 

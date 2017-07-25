@@ -4,9 +4,9 @@
   <ul>
     <li class="visitedPage"><a href="/">Home</a></li>
     <li class="currentPage"><a href="{% url 'manage' %}">Management console</a></li>
-    <li class="futurePage"><a href="{% url 'manage_student' %}">Look up student</a></li>
-    <li class="futurePage"><a href="{% url 'manage_employee' %}">Manage staff members</a></li>
-    <li class="futurePage"><a href="">Create a new course</a></li>
+    <li class="futurePage"><a href="{% url 'lookup_user' %}">Look up user</a></li>
+    <li class="futurePage"><a href="{% url 'admin:autodidact_course_add' %}">Create a new course</a></li>
+    <li class="futurePage"><a href="{% url 'admin:app_list' 'autodidact' %}">BPS Admin Interface</a></li>
   </ul>
 {% endblock %}
 
