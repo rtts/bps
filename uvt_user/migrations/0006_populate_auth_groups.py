@@ -14,6 +14,9 @@ AUTODIDACT_GROUPS = [
         'add_clarification',
         'change_clarification',
         'delete_clarification',
+        'add_stepfile',
+        'change_stepfile',
+        'delete_stepfile',
     ],
      '1. Editor: Edit individual steps, answers, and clarifications'
     ),
