@@ -50,7 +50,6 @@ LOGIN_REDIRECT_URL = '/'
 WSGI_APPLICATION   = 'bps.wsgi.application'
 PACKAGE_DIR        = os.path.dirname(__file__)
 TEMPLATE_DIRS      = [os.path.join(PACKAGE_DIR, 'templates')]
-STATICFILES_DIRS   = [os.path.join(PACKAGE_DIR, 'static')]
 STATIC_URL         = '/static/'
 MEDIA_URL          = '/uploads/'
 LANGUAGE_CODE      = 'en-us'
@@ -62,6 +61,12 @@ if https_only and not DEBUG:
     SECURE_SSL_REDIRECT   = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE    = True
+
+STATICFILES_DIRS = [
+    os.path.join(PACKAGE_DIR, 'static'),
+    '/usr/share/javascript',
+]
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
