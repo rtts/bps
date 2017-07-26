@@ -19,7 +19,8 @@
       <tr>
         <th>Staff</th>
         <th>User</th>
-        <th>User number</th>
+        <th>emplId</th>
+        <th>ANR</th>
         <th>Email</th>
       </tr>
       {% for user in users %}
@@ -35,7 +36,8 @@
                 <a href="{% url 'user_details_readonly' user.user.username %}">{{user.full_name|default:'[unavailable]'}}</a>
               {% endif %}
             <small>(<i>{{user.first_name|default:'[unavailable]'}}</i>)</small></td>
-          <td>{{user.ANR|default:'[unavailable]'}}</td>
+            <td>{{user.emplId|default:'[unavailable]'}}</td>
+            <td>{{user.ANR|default:'[unavailable]'}}</td>
           <td>{{user.email|default:'[unavailable]'}}</td>
         </tr>
       {% endfor %}
