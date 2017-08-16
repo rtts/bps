@@ -117,7 +117,7 @@ TEMPLATES = [
     },
 ]
 
-SILENCED_SYSTEM_CHECKS = ['1_8.W001']
+SILENCED_SYSTEM_CHECKS = ['1_8.W001', 'urls.W003']
 
 LOGGING = {
     'version': 1,
