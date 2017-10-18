@@ -20,8 +20,11 @@ def search_ldap(username):
         conn.search(baseDN, searchFilter, attributes=attributes)
         response = conn.response[0]['attributes']
         for a in attributes:
-            if a in response:
-                result += (response[a][0],)
+            if a in response and response[a]:
+                if type(response[a]) is list:
+                    result += (response[a][0],)
+                else:
+                    result += (response[a],)
             else:
                 result += ('',)
     except IndexError:
