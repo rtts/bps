@@ -2,8 +2,11 @@ import os, sys
 import logging
 import configparser
 from django.core.exceptions import ImproperlyConfigured
-from autodidact.utils import random_string
 from .utils import read
+
+HUMAN_FRIENDLY_CHARS = '234679ABCDEFGHJKLMNPRSTUVWXYZabcdefghijkmnpqrstuvwxyz'
+def random_string(length):
+    return ''.join(random.choice(HUMAN_FRIENDLY_CHARS) for x in range(length))
 
 if os.path.isfile('/etc/bps/config.ini'):
     CONFIG_FILE = '/etc/bps/config.ini'

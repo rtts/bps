@@ -11,28 +11,7 @@
 
 {% block content %}
   <section class="students">
-    <h2>User details</h2>
-    <dl>
-      <dt>Full name:</dt>
-      <dd>{{user.uvt_user.full_name|default:'[unavailable]'}}</dd>
-      <dt>First name:</dt>
-      <dd>{{user.uvt_user.first_name|default:'[unavailable]'}}</dd>
-      <dt>Student number <small><code>EmplId</code></small>:</dt>
-      <dd>{{user.uvt_user.emplId|default:'[unavailable]'}}</dd>
-      <dt>Employee number <small><code>ANR</code></small>:</dt>
-      <dd>{{user.uvt_user.ANR|default:'[unavailable]'}}</dd>
-      <dt>Email address:</dt>
-      <dd>{{user.uvt_user.email|default:'[unavailable]'}}</dd>
-    </dl>
-
-    <h2>Permissions</h2>
-    <form action="" method="POST" class="management">
-      {% csrf_token %}
-      {{form.as_p}}
-      {% if perms.auth.change_permission %}
-        <input type="submit" value="Save changes">
-      {% endif %}
-    </form>
+    <h1>Overview of user {{user}}</h1>
 
     {% if user.is_staff %}
       <h2>Taught sessions</h2>
@@ -57,9 +36,9 @@
       <h2>Attended sessions</h2>
       <table>
         <tr>
-          <th>Date</th>
-          <th>Class number</th>
           <th>Session</th>
+          <th>Class number</th>
+          <th>Date</th>
         </tr>
 
         {% for class in user.attends.all %}
@@ -71,6 +50,33 @@
         {% endfor %}
       </table>
     {% endif %}
+
+    <div style="float:left">
+    <h2>User details</h2>
+    <dl>
+      <dt>Full name:</dt>
+      <dd>{{user.uvt_user.full_name|default:'[unavailable]'}}</dd>
+      <dt>First name:</dt>
+      <dd>{{user.uvt_user.first_name|default:'[unavailable]'}}</dd>
+      <dt>Student number <small><code>EmplId</code></small>:</dt>
+      <dd>{{user.uvt_user.emplId|default:'[unavailable]'}}</dd>
+      <dt>Employee number <small><code>ANR</code></small>:</dt>
+      <dd>{{user.uvt_user.ANR|default:'[unavailable]'}}</dd>
+      <dt>Email address:</dt>
+      <dd>{{user.uvt_user.email|default:'[unavailable]'}}</dd>
+    </dl>
+    </div>
+
+    <div style="float:right">
+    <h2>Permissions</h2>
+    <form action="" method="POST" class="management">
+      {% csrf_token %}
+      {{form.as_p}}
+      {% if perms.auth.change_permission %}
+        <input type="submit" value="Save changes">
+      {% endif %}
+    </form>
+    </div>
 
   </section>
 {% endblock %}
