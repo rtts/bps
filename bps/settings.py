@@ -72,6 +72,7 @@ STATICFILES_DIRS = [
 
 
 INSTALLED_APPS = [
+    'autodidact',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -81,7 +82,6 @@ INSTALLED_APPS = [
     'django_cleanup',
     'pandocfield',
     'uvt_user',
-    'autodidact',
 ]
 
 MIDDLEWARE_CLASSES = [
