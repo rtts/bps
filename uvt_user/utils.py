@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from __future__ import unicode_literals
 
 import re
@@ -33,3 +35,8 @@ def search_ldap(username):
         raise LDAPError('Unknown error in LDAP query')
 
     return result
+
+if __name__ == '__main__':
+    import sys
+    result = search_ldap(sys.argv[1])
+    print(result)
