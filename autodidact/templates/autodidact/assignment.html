@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extrahead %}
+  <script src="{% static 'mathjax/MathJax.js' %}?config=TeX-AMS-MML_HTMLorMML"></script>
+{% endblock %}
+
+{% block navigation %}
+  <ul>
+    <li class="visitedPage"><a href="{% url 'homepage' %}">Home</a></li>
+    <li class="visitedPage"><a href="{% url 'course' course.slug %}">{{course.name}}<br>(<code>{{course.colloquial_name}}</code>)</a></li>
+    <li class="visitedPage"><a href="{% url 'session' course.slug session.number %}">Session {{session.number}}</a></li>
+    <li class="currentPage"><a href="{% url 'assignment' course.slug session.number assignment.number %}">Assignment {{assignment.number}}: {{assignment.name}}</a></li>
+    {% if user.is_staff and perms.autodidact.change_assignment %}
+      <li><a class="editlink" href="{% url 'admin:autodidact_assignment_change' assignment.pk %}">Edit this assignment</a></li>
+    {% endif %}
+    {% if user.is_staff and perms.autodidact.add_assignment %}
+      <li><a class="editlink" href="{% url 'copy_assignment' course.slug session.number assignment.number %}">Duplicate this assignment</a></li>
+    {% endif %}
+  </ul>
+{% endblock %}
+
+{% block content %}
+  {% include 'autodidact/include/step.html' %}
+{% endblock %}

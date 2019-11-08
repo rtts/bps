@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navigation %}
+  <ul>
+    <li class="visitedPage"><a href="{% url 'homepage' %}">Home</a></li>
+    <li class="currentPage"><a href="">{{program.name}}</a></li>
+    {% for course in program.courses.all %}
+      {% if course.active %}
+        <li class="futurePage"><a href="{% url 'course' course.slug %}">{{course.name}}<br>(<code>{{course.colloquial_name}}</code>)</a></li>
+      {% elif user.is_staff %}
+        <li class="futurePage inactive"><a href="{% url 'course' course.slug %}">{{course.name}}<br>(<code>{{course.colloquial_name}}</code>)</a></li>
+      {% endif %}
+    {% empty %}
+      <li class="empty">No {{program.name}} courses available</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+{% block content %}
+  <section>
+    {{program.description}}
+  </section>
+{% endblock %}

@@ -1,0 +1,20 @@
+<table>
+  {% for assignment in assignments %}
+    {% if assignment.active %}
+      <tr>
+        <td class="y-axis">
+	  <a href="{{assignment.get_absolute_url}}">Assignment {{assignment.number}}</a>
+        </td>
+        <td>
+	  <div class="bar" style="width: {{assignment.progress|floatformat:'0'}}%">{{assignment.progress|floatformat:'0'}}%</div>
+        </td>
+      </tr>
+    {% endif %}
+  {% endfor %}
+  <tr>
+    <td class="origin">
+    </td>
+    <td class="x-axis">
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,36 @@
+<table>
+  {% for assignment in assignments %}
+    {% if assignment.active %}
+      <tr>
+        <td colspan="2">
+	  <h2>Assignment {{assignment.number}}</h2>
+        </td>
+      </tr>
+      {% if not assignment.progress %}
+        <tr>
+          <td colspan="2">
+            You have not yet started this assignment
+          </td>
+        </tr>
+      {% endif %}
+    {% endif %}
+    {% for step in assignment.steps.all %}
+      {% if step.answer_required and step.completedstep %}
+        <tr>
+          <td class="step">
+            <a href="{{step.get_absolute_url}}">Step {{step.number}})</a>
+	  </td>
+	  <td>
+	    {% if step.given_values.0 %}
+              {% for answer in step.given_values %}
+	        <pre {% if not step.completedstep.passed %}class="missing"{% endif %}>{{answer}}</pre>
+              {% endfor %}
+	    {% else %}
+	      <pre class="missing">Required answer is missing</pre>
+	    {% endif %}
+	  </td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+</table>

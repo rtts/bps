@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load autodidact %}
+{% load static %}
+
+{% block extrahead %}
+  <script src="{% static 'mathjax/MathJax.js' %}?config=TeX-AMS-MML_HTMLorMML"></script>
+{% endblock %}
+
+{% block navigation %}
+  <ul>
+    <li class="visitedPage"><a href="{% url 'homepage' %}">Home</a></li>
+    {% if page.slug %}
+      <li class="visitedPage"><a href="{% url 'documentation' %}">Documentation</a></li>
+      <li class="currentPage"><a href="{% url 'documentation' page.slug %}">{{page.title}}</a></li>
+    {% else %}
+      <li class="currentPage"><a href="{% url 'documentation' %}">Documentation</a></li>
+    {% endif %}
+  </ul>
+{% endblock %}
+
+{% block content %}
+<section>
+  {{page.content|insert_images}}
+</section>
+{% endblock %}

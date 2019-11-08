@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navigation %}
+  <ul>
+    {% if bachelor_programs %}
+      <li class="heading">Bachelor programs:</li>
+      {% for program in bachelor_programs %}
+        {% if user.is_staff or program.has_active_courses %}
+          <li class="futurePage"><a href="{% url 'program' program.slug %}">{{program.name}}</a></li>
+        {% endif %}
+      {% endfor %}
+      <li class="spacer"></li>
+    {% endif %}
+    {% if premaster_programs %}
+      <li class="heading">Pre-master programs:</li>
+      {% for program in premaster_programs %}
+        {% if user.is_staff or program.has_active_courses %}
+          <li class="futurePage"><a href="{% url 'program' program.slug %}">{{program.name}}</a></li>
+        {% endif %}
+      {% endfor %}
+      <li class="spacer"></li>
+    {% endif %}
+    {% if master_programs %}
+      <li class="heading">Master programs:</li>
+      {% for program in master_programs %}
+        {% if user.is_staff or program.has_active_courses %}
+          <li class="futurePage"><a href="{% url 'program' program.slug %}">{{program.name}}</a></li>
+        {% endif %}
+      {% endfor %}
+      <li class="spacer"></li>
+    {% endif %}
+
+  </ul>
+{% endblock %}
+
+{% block content %}
+
+  <section>
+    <div style="float:right; width:160px; background:#008ec6; margin-left:1em">
+      <img src="{% static 'keep-calm.png' %}" style="width:100%">
+    </div>
+    <h1>Best Practices in Statistics</h1>
+    <p>
+      Welcome to Best Practices in Statistics! Our goal is to get you hands-on experience with statistical software such as IBM SPSS during your study in the social sciences. BPS was created by the <a href="https://www.tilburguniversity.edu/about/schools/socialsciences/organization/departments/methodology-statistics/">Department of Methodology and Statistics</a> at the <a href="https://www.tilburguniversity.edu/about/schools/socialsciences/">Tilburg School of Social and Behavioral Sciences</a>.</p>
+    <p>
+      Please select your program on the left or browse the available subjects below.
+    </p>
+  </section>
+
+  <section>
+    <ul class="tagcloud">
+      {% for tag in tags %}
+        <li>
+          <a class="tag" href="{{tag.get_absolute_url}}">{{tag}}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+{% endblock %}
