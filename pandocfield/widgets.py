@@ -5,7 +5,7 @@ class PandocEditor(forms.widgets.Textarea):
     """Form widget specifically for editing PandocFields
 
     """
-    def render(self, name, value, attrs={}):
+    def render(self, name, value, attrs={}, renderer=None):
         if hasattr(value, 'raw'):
             value = value.raw
         # return super().render(name, value, attrs)
