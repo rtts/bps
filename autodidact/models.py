@@ -1,13 +1,9 @@
-from __future__ import unicode_literals
 import os
 from datetime import timedelta
 from django.utils import timezone
 from django.db import models
 from django.conf import settings
-from django.core.urlresolvers import reverse
-from django.utils.encoding import python_2_unicode_compatible
-from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
-from django.contrib.contenttypes.models import ContentType
+from django.urls import reverse
 from pandocfield import PandocField
 from numberedmodel.models import NumberedModel
 from .utils import clean
@@ -29,7 +25,7 @@ class Page(models.Model):
             return reverse('documentation')
 
 class PageFile(models.Model):
-    page = models.ForeignKey(Page, related_name='files')
+    page = models.ForeignKey(Page, related_name='files', on_delete=models.CASCADE)
     file = models.FileField()
 
     def __str__(self):
@@ -106,7 +102,7 @@ class Course(NumberedModel):
 
 class Topic(NumberedModel):
     number = models.PositiveIntegerField(blank=True)
-    course = models.ForeignKey(Course, related_name="topics")
+    course = models.ForeignKey(Course, related_name="topics", on_delete=models.CASCADE)
     name = models.CharField(max_length=255, blank=True)
     description = PandocField(blank=True)
 
@@ -124,7 +120,7 @@ class Topic(NumberedModel):
 
 class Session(NumberedModel):
     number = models.PositiveIntegerField(blank=True)
-    course = models.ForeignKey(Course, related_name="sessions")
+    course = models.ForeignKey(Course, related_name="sessions", on_delete=models.PROTECT)
     name = models.CharField(max_length=255, blank=True)
     description = PandocField(blank=True)
     registration_enabled = models.BooleanField(default=True, help_text='When enabled, class attendance will be registered')
@@ -145,7 +141,7 @@ class Session(NumberedModel):
 
 class Assignment(NumberedModel):
     number = models.PositiveIntegerField(blank=True)
-    session = models.ForeignKey(Session, related_name='assignments', help_text='You can move assignments between sessions by using this dropdown menu')
+    session = models.ForeignKey(Session, related_name='assignments', help_text='You can move assignments between sessions by using this dropdown menu', on_delete=models.PROTECT)
     name = models.CharField(max_length=255, blank=True)
     active = models.BooleanField(default=False, help_text='Inactive assignments are not visible to students')
     locked = models.BooleanField(default=False, help_text='Locked assignments can only be made by students in class')
@@ -174,7 +170,7 @@ class Assignment(NumberedModel):
 
 class Step(NumberedModel):
     number = models.PositiveIntegerField(blank=True)
-    assignment = models.ForeignKey(Assignment, related_name='steps')
+    assignment = models.ForeignKey(Assignment, related_name='steps', on_delete=models.CASCADE)
     description = PandocField(blank=True)
     answer_required = models.BooleanField(default=False, help_text='If enabled, this step will show students an input field where they can enter their answer. Add one or more right answers below to have students’ answers checked for correctness.')
 
@@ -200,22 +196,22 @@ class Step(NumberedModel):
         ordering = ['number']
 
 class RightAnswer(models.Model):
-    step = models.ForeignKey(Step, related_name='right_answers')
+    step = models.ForeignKey(Step, related_name='right_answers', on_delete=models.CASCADE)
     value = models.CharField(max_length=255, help_text='This value can either be a case-insensitive string or a numeric value. For numeric values you can use the <a target="_blank" href="https://docs.moodle.org/23/en/GIFT_format">GIFT notation</a> of "answer:tolerance" or "low..high".')
 
     def __str__(self):
         return 'Right answer for {}'.format(self.step)
 
 class WrongAnswer(models.Model):
-    step = models.ForeignKey(Step, related_name='wrong_answers')
+    step = models.ForeignKey(Step, related_name='wrong_answers', on_delete=models.CASCADE)
     value = models.CharField(max_length=255, help_text='Supplying one or more wrong answers will turn this into a multiple choice question.')
 
     def __str__(self):
         return 'Wrong answer for {}'.format(self.step)
 
 class CompletedStep(models.Model):
-    step = models.ForeignKey(Step, related_name='completed')
-    whom = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='completed')
+    step = models.ForeignKey(Step, related_name='completed', on_delete=models.CASCADE)
+    whom = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='completed', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     answer = models.TextField(blank=True)
     passed = models.BooleanField(default=True)
@@ -227,11 +223,11 @@ class CompletedStep(models.Model):
         verbose_name_plural = 'completed steps'
 
 class Class(models.Model):
-    session = models.ForeignKey(Session, related_name='classes')
+    session = models.ForeignKey(Session, related_name='classes', on_delete=models.CASCADE)
     number = models.CharField(max_length=16)
     ticket = models.CharField(unique=True, max_length=16)
     students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='attends', blank=True)
-    teacher = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='teaches', blank=True, null=True)
+    teacher = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='teaches', blank=True, null=True, on_delete=models.SET_NULL)
     dismissed = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True)
 
@@ -245,7 +241,7 @@ class Class(models.Model):
         verbose_name_plural = 'classes'
 
 class Download(models.Model):
-    session = models.ForeignKey(Session, related_name='downloads')
+    session = models.ForeignKey(Session, related_name='downloads', on_delete=models.CASCADE)
     file = models.FileField()
 
     def __str__(self):
@@ -258,7 +254,7 @@ class Download(models.Model):
         ordering = ['file']
 
 class Presentation(models.Model):
-    session = models.ForeignKey(Session, related_name='presentations')
+    session = models.ForeignKey(Session, related_name='presentations', on_delete=models.CASCADE)
     file = models.FileField()
     visibility = models.IntegerField(choices=(
         (0, 'Invisible'),
@@ -278,7 +274,7 @@ class Presentation(models.Model):
 
 class Clarification(NumberedModel):
     number = models.PositiveIntegerField(blank=True)
-    step = models.ForeignKey(Step, related_name='clarifications')
+    step = models.ForeignKey(Step, related_name='clarifications', on_delete=models.CASCADE)
     description = PandocField(blank=True)
     image = models.ImageField(blank=True)
 
@@ -292,7 +288,7 @@ class Clarification(NumberedModel):
         ordering = ['number']
 
 class StepFile(models.Model):
-    step = models.ForeignKey(Step, related_name='files')
+    step = models.ForeignKey(Step, related_name='files', on_delete=models.CASCADE)
     file = models.FileField()
 
     def __str__(self):

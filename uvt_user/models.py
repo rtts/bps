@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 
 class UvtUser(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='uvt_user')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='uvt_user', on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255, blank=True)
     last_name = models.CharField(max_length=255, blank=True)
     full_name = models.CharField(max_length=255, blank=True)

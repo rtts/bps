@@ -1,12 +1,12 @@
 import django.contrib.auth.views
-from django.conf.urls import include, url
+from django.conf.urls import url
 from django.contrib import admin
 from .views import *
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^login/$', django.contrib.auth.views.login, name='login'),
-    url(r'^logout/$', django.contrib.auth.views.logout, name='logout'),
+    url(r'^admin/', admin.site.urls),
+    url(r'^login/$', django.contrib.auth.views.LoginView.as_view(), name='login'),
+    url(r'^logout/$', django.contrib.auth.views.LogoutView.as_view(), name='logout'),
     url(r'^$', homepage, name='homepage'),
     url(r'^doc/$', documentation, name='documentation'),
     url(r'^doc/([^/]+)/$', documentation, name='documentation'),

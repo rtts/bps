@@ -141,7 +141,7 @@ class Migration(migrations.Migration):
                 ('_description_html', models.TextField(editable=False, blank=True)),
                 ('registration_enabled', models.BooleanField(default=True, help_text='When enabled, class attendance will be registered')),
                 ('active', models.BooleanField(default=True, help_text='Inactive sessions are not visible to students')),
-                ('course', models.ForeignKey(related_name='sessions', to='autodidact.Course')),
+                ('course', models.ForeignKey(related_name='sessions', to='autodidact.Course', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['number'],
@@ -156,7 +156,7 @@ class Migration(migrations.Migration):
                 ('description', pandocfield.fields.PandocField(blank=True, auto_create_html_field=False)),
                 ('answer_required', models.BooleanField(default=False, help_text='If enabled, this step will show the student a text box where they can enter their answer')),
                 ('_description_html', models.TextField(editable=False, blank=True)),
-                ('assignment', models.ForeignKey(related_name='steps', to='autodidact.Assignment')),
+                ('assignment', models.ForeignKey(related_name='steps', to='autodidact.Assignment', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['number'],
@@ -169,7 +169,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('name', models.CharField(max_length=255, unique=True)),
                 ('object_id', models.PositiveIntegerField()),
-                ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['name'],
@@ -184,7 +184,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(blank=True, max_length=255)),
                 ('description', pandocfield.fields.PandocField(blank=True, auto_create_html_field=False)),
                 ('_description_html', models.TextField(editable=False, blank=True)),
-                ('course', models.ForeignKey(related_name='topics', to='autodidact.Course')),
+                ('course', models.ForeignKey(related_name='topics', to='autodidact.Course', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['number'],
@@ -194,13 +194,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='presentation',
             name='session',
-            field=models.ForeignKey(related_name='presentations', to='autodidact.Session'),
+            field=models.ForeignKey(related_name='presentations', to='autodidact.Session', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='download',
             name='session',
-            field=models.ForeignKey(related_name='downloads', to='autodidact.Session'),
+            field=models.ForeignKey(related_name='downloads', to='autodidact.Session', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -212,19 +212,19 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='completedstep',
             name='step',
-            field=models.ForeignKey(related_name='completed', to='autodidact.Step'),
+            field=models.ForeignKey(related_name='completed', to='autodidact.Step', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='completedstep',
             name='whom',
-            field=models.ForeignKey(related_name='completed', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(related_name='completed', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='class',
             name='session',
-            field=models.ForeignKey(related_name='classes', to='autodidact.Session'),
+            field=models.ForeignKey(related_name='classes', to='autodidact.Session', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -236,19 +236,19 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='class',
             name='teacher',
-            field=models.ForeignKey(to=settings.AUTH_USER_MODEL, blank=True, null=True, related_name='teaches'),
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL, blank=True, null=True, related_name='teaches', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='clarification',
             name='step',
-            field=models.ForeignKey(related_name='clarifications', to='autodidact.Step'),
+            field=models.ForeignKey(related_name='clarifications', to='autodidact.Step', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='assignment',
             name='session',
-            field=models.ForeignKey(related_name='assignments', to='autodidact.Session'),
+            field=models.ForeignKey(related_name='assignments', to='autodidact.Session', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

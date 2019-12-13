@@ -3,7 +3,7 @@ from django.db import models
 from django.forms import RadioSelect
 from django.shortcuts import redirect
 from django.utils.safestring import mark_safe
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.forms import CheckboxSelectMultiple
 from django.contrib.contenttypes.admin import GenericStackedInline
 from .utils import duplicate_assignment, duplicate_session, duplicate_course

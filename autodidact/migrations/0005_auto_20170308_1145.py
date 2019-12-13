@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='assignment',
             name='session',
-            field=models.ForeignKey(help_text='You can move assignments between sessions by using this dropdown menu', related_name='assignments', to='autodidact.Session'),
+            field=models.ForeignKey(help_text='You can move assignments between sessions by using this dropdown menu', related_name='assignments', to='autodidact.Session', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterField(

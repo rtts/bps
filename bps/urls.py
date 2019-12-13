@@ -27,8 +27,8 @@ def logout(request):
 urlpatterns = [
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),
-    url(r'^login/regular/$', django.contrib.auth.views.login, name='login_regular'),
-    url(r'^logout/regular/$', django.contrib.auth.views.logout, name='logout_regular'),
+    url(r'^login/regular/$', django.contrib.auth.views.LoginView.as_view(), name='login_regular'),
+    url(r'^logout/regular/$', django.contrib.auth.views.LogoutView.as_view(), name='logout_regular'),
 ]
 
 if cas_enabled:
@@ -40,7 +40,7 @@ if cas_enabled:
 
 urlpatterns += [
     url(r'^admin/login/$', login, name='admin:login'),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
     url(r'^manage/', include(uvt_user.urls)),
     url(r'^', include(autodidact.urls)),
 ]

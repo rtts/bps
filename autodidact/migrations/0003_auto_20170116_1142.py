@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
                 ('value', models.CharField(help_text='This value can either be a case-insensitive string or a numeric value. For numeric values you can use the <a target="_blank" href="https://docs.moodle.org/23/en/GIFT_format">GIFT notation</a> of "answer:tolerance" or "low..high".', max_length=255)),
-                ('step', models.ForeignKey(related_name='right_answers', to='autodidact.Step')),
+                ('step', models.ForeignKey(related_name='right_answers', to='autodidact.Step', on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
                 ('value', models.CharField(help_text='Supplying one or more wrong answers will turn this into a multiple choice question.', max_length=255)),
-                ('step', models.ForeignKey(related_name='wrong_answers', to='autodidact.Step')),
+                ('step', models.ForeignKey(related_name='wrong_answers', to='autodidact.Step', on_delete=models.CASCADE)),
             ],
             options={
             },
