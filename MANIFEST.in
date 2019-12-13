@@ -1,4 +1,3 @@
-recursive-include bps/static *
-recursive-include bps/templates *
-recursive-include uvt_user/templates *
-recursive-exclude bps .gitignore
+recursive-include ** *
+recursive-exclude ** .gitignore
+recursive-exclude ** .sass-cache

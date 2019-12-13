@@ -1,3 +1,11 @@
+bps (2.0.0~rc1) stable; urgency=medium
+
+  * Merge autodidact with bps
+  * Various functional improvements
+  * Database migrations
+
+ -- Jaap Joris Vens <jj@telos.rtts.eu>  Fri, 13 Dec 2019 16:06:13 +0100
+
 bps (1.0.5~rc1) stable; urgency=medium
 
   [ Wessel Dankers ]

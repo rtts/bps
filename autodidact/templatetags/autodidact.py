@@ -7,14 +7,6 @@ from ..models import *
 register = template.Library()
 
 @register.simple_tag
-def autodidact_version():
-    try:
-        import autodidact
-        return autodidact.__version__
-    except ImportError:
-        return 'unknown'
-
-@register.simple_tag
 def bps_version():
     try:
         import bps
