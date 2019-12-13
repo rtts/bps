@@ -1,0 +1,8 @@
+*.pyc
+*.egg-info/
+/MANIFEST
+/dist/
+/build/
+/.coverage
+/.pybuild
+/htmlcov
