@@ -12,7 +12,8 @@ import cas.views
 urlpatterns = [
     url(r'^login/$',cas.views.login, name='login'),
     url(r'^logout/$',cas.views.logout, name='logout'),
-    url(r'^admin/login/$', cas.views.login, name='admin:login'),
+    url(r'^admin/login/$', cas.views.login),
+    url(r'^admin/logout/$', cas.views.logout),
     url(r'^admin/', admin.site.urls),
     url(r'^manage/', include(uvt_user.urls)),
     url(r'^', include(autodidact.urls)),

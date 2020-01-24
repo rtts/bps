@@ -42,24 +42,25 @@ except IOError:
     else:
         raise ImproperlyConfigured('Could not read secret key file specified in config file: "{}"'.format(secret_key))
 
-STATIC_ROOT        = static_dir
-MEDIA_ROOT         = uploads_dir
-CAS_SERVER_URL     = cas_server
-ALLOWED_HOSTS      = [e.strip() for e in allowed_hosts.split(',')]
-DEBUG              = debug
-ROOT_URLCONF       = 'bps.urls'
-LOGIN_URL          = '/login/'
+STATIC_ROOT = static_dir
+MEDIA_ROOT = uploads_dir
+CAS_SERVER_URL = cas_server
+CAS_RESPONSE_CALLBACKS = ['uvt_user.cas.callback']
+ALLOWED_HOSTS = [e.strip() for e in allowed_hosts.split(',')]
+DEBUG = debug
+ROOT_URLCONF = 'bps.urls'
+LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
-WSGI_APPLICATION   = 'bps.wsgi.application'
-PACKAGE_DIR        = os.path.dirname(__file__)
-TEMPLATE_DIRS      = [os.path.join(PACKAGE_DIR, 'templates')]
-STATIC_URL         = '/static/'
-MEDIA_URL          = '/uploads/'
-LANGUAGE_CODE      = 'en-us'
-TIME_ZONE          = 'Europe/Amsterdam'
-USE_I18N           = False
-USE_L10N           = False
-USE_TZ             = True
+WSGI_APPLICATION = 'bps.wsgi.application'
+PACKAGE_DIR = os.path.dirname(__file__)
+TEMPLATE_DIRS = [os.path.join(PACKAGE_DIR, 'templates')]
+STATIC_URL = '/static/'
+MEDIA_URL = '/uploads/'
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'Europe/Amsterdam'
+USE_I18N = False
+USE_L10N = False
+USE_TZ = True
 if https_only and not DEBUG:
     SECURE_SSL_REDIRECT   = True
     SESSION_COOKIE_SECURE = True
@@ -81,6 +82,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pandocfield',
     'uvt_user',
+    'cas',
 ]
 
 MIDDLEWARE = [
@@ -91,16 +93,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'cas.middleware.CASMiddleware',
 ]
 
-if CAS_SERVER_URL:
-    AUTHENTICATION_BACKENDS = [
-        'django.contrib.auth.backends.ModelBackend',
-        'cas.backends.CASBackend',
-    ]
-    INSTALLED_APPS += ['cas']
-    #MIDDLEWARE_CLASSES += ['cas.middleware.CASMiddleware']
-    CAS_RESPONSE_CALLBACKS = ['uvt_user.cas.callback']
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'cas.backends.CASBackend',
+]
 
 TEMPLATES = [
     {
@@ -119,7 +118,7 @@ TEMPLATES = [
     },
 ]
 
-SILENCED_SYSTEM_CHECKS = ['1_8.W001', 'urls.W003']
+#SILENCED_SYSTEM_CHECKS = ['1_8.W001', 'urls.W003']
 
 LOGGING = {
     'version': 1,
