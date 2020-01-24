@@ -32,6 +32,9 @@ class UserAdmin(BaseUserAdmin):
         else:
             return ''
 
+    def has_add_permission(self, *args, **kwargs):
+        return False
+
 # Re-register UserAdmin
 admin.site.unregister(get_user_model())
 admin.site.register(get_user_model(), UserAdmin)

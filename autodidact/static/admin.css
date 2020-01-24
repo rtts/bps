@@ -1,14 +1,18 @@
 #header {
-  background: #003366;
+  background: #0080b3;
   color: #fff;
+  background: url("/static/blue.gif");
 }
 
-#branding h1 {
-  color: white;
+#branding h1 a {
+  color: white !important;
+  font-family: "Arial", sans-serif;
+  font-weight: bold;
+  font-size: 20px;
 }
 
-.module h2, .module caption, .inline-group h2 {
-  background: #003366;
+.module h2, .module caption, .inline-group h2, div.breadcrumbs {
+  background: #007cac;
 }
 
 .vIntegerField {

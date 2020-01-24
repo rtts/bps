@@ -25,15 +25,13 @@ class FunkySaveAdmin(object):
         else:
             return super(FunkySaveAdmin, self).response_change(request, obj)
 
-    def add_view(self, request, form_url='', extra_context=None):
-        extra_context = extra_context or {}
+    def add_view(self, request, form_url='', extra_context={}):
         extra_context['show_save_and_return'] = True
-        return super().change_view(
+        return super().add_view(
             request, form_url, extra_context=extra_context,
         )
 
-    def change_view(self, request, object_id, form_url='', extra_context=None):
-        extra_context = extra_context or {}
+    def change_view(self, request, object_id, form_url='', extra_context={}):
         extra_context['show_save_and_return'] = True
         return super().change_view(
             request, object_id, form_url, extra_context=extra_context,
@@ -92,6 +90,7 @@ class PageAdmin(FunkySaveAdmin, admin.ModelAdmin):
 class CourseAdmin(FunkySaveAdmin, admin.ModelAdmin):
     list_display = ['__str__', 'order', 'url']
     list_filter = ['programs']
+    prepopulated_fields = {'slug': ['name']}
     formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
