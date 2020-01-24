@@ -7,28 +7,30 @@ the form of "Blended Learning": step-by-step digital instructions
 crafted by the best of statistics teachers, tailored to the contents
 of the various statistics courses provided by Tilburg University.
 
-At present, BPS is only available to Tilburg University students at the
-following URL: https://bps.uvt.nl/ We are, however, working on releasing
-this project to a wider audience. If you are interested in cooperating,
-please send an email to J.J.Vens@tilburguniversity.edu
+BPS is currently available to Tilburg University students at the
+following URL: https://bps.uvt.nl/
 
-BPS is built using
-[Autodidact](https://github.com/JaapJoris/autodidact), a
-[Django](https://www.djangoproject.com/) application for managing lab
-sessions and providing statistical exercises. If you are interested in
-implementing your own Blended Learning environment, please refer to
-the [Autodidact](https://github.com/JaapJoris/autodidact)
-repository.
+This repository contains all the source code of BPS, including the
+formerly separately published Autodidact app. Everyone if free to use
+this code to built their own blended learning environment! Here's how
+to get started:
 
 Installation
 ------------
 
-Tilburg University maintains a Debian repository at
-https://non-gnu.uvt.nl/ from which BPS can be installed. First, add
-the following lines to `/etc/apt/sources.list`:
+The easiest way to install this is using `pip`:
 
-    deb http://non-gnu.uvt.nl/debian jessie uvt
-    deb-src http://non-gnu.uvt.nl/debian jessie uvt
+    pip3 install git+https://github.com/rtts/bps
+
+This should automatically get you the latest version of BPS and all
+its dependencies.
+
+Alternatively, you can install BPS from [Tilburg University's Debian
+repository](https://non-gnu.uvt.nl/). First, add the following lines
+to `/etc/apt/sources.list`:
+
+    deb http://non-gnu.uvt.nl/debian buster uvt
+    deb-src http://non-gnu.uvt.nl/debian buster uvt
 
 Second, add the Tilburg University signing key to your apt key store:
 
