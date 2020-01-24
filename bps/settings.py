@@ -16,7 +16,7 @@ else:
     raise ImproperlyConfigured('Could not locate the configuration file {/etc/,}bps/config.ini')
 
 try:
-    cfg = configparser.RawConfigParser()
+    cfg = configparser.ConfigParser()
     cfg.read(CONFIG_FILE)
     static_dir    = cfg.get('locations', 'static_dir')
     uploads_dir   = cfg.get('locations', 'uploads_dir')
@@ -26,7 +26,7 @@ try:
     db_host       = cfg.get('database', 'hostname')
     db_user       = cfg.get('database', 'username')
     db_pass       = cfg.get('database', 'password')
-    cas_server    = cfg.get('misc', 'cas_server')
+    cas_server    = cfg.get('misc', 'cas_server', fallback='')
     allowed_hosts = cfg.get('misc', 'allowed_hosts')
     https_only    = cfg.get('misc', 'https_only') in ['true', 'True', 'on', 'yes']
     debug         = cfg.get('misc', 'debug') in ['true', 'True', 'on', 'yes']
@@ -117,8 +117,6 @@ TEMPLATES = [
         },
     },
 ]
-
-#SILENCED_SYSTEM_CHECKS = ['1_8.W001', 'urls.W003']
 
 LOGGING = {
     'version': 1,

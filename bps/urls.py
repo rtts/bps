@@ -1,22 +1,26 @@
-import django.contrib.auth.views
-from django.conf.urls import include, url
-from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.conf.urls import include, url
+from django.conf.urls.static import static
+from django.contrib.auth.views import LoginView, LogoutView
+
 import autodidact.urls
 import uvt_user.urls
-import cas.views
+
+if settings.CAS_SERVER_URL:
+    import cas.views
+    login = cas.views.login
+    logout = cas.views.logout
+else:
+    login = LoginView.as_view()
+    logout = LogoutView.as_view()
 
 urlpatterns = [
-    url(r'^login/$',cas.views.login, name='login'),
-    url(r'^logout/$',cas.views.logout, name='logout'),
-    url(r'^admin/login/$', cas.views.login),
-    url(r'^admin/logout/$', cas.views.logout),
+    url(r'^login/$', login, name='login'),
+    url(r'^logout/$', logout, name='logout'),
+    url(r'^admin/login/$', login),
+    url(r'^admin/logout/$', logout),
     url(r'^admin/', admin.site.urls),
     url(r'^manage/', include(uvt_user.urls)),
     url(r'^', include(autodidact.urls)),
-]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
