@@ -7,39 +7,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 import autodidact.urls
 import uvt_user.urls
-
-cas_enabled = bool(settings.CAS_SERVER_URL)
-
-def login(request):
-    param = request.META['QUERY_STRING']
-    return render(request, 'login.html', {
-        'param': param,
-        'cas_enabled': cas_enabled,
-    })
-
-@login_required
-def logout(request):
-    if hasattr(request.user, 'uvt_user'):
-        return redirect('logout_sso')
-    else:
-        return redirect('logout_regular')
+import cas.views
 
 urlpatterns = [
-    url(r'^login/$', login, name='login'),
-    url(r'^logout/$', logout, name='logout'),
-    url(r'^login/regular/$', django.contrib.auth.views.LoginView.as_view(), name='login_regular'),
-    url(r'^logout/regular/$', django.contrib.auth.views.LogoutView.as_view(), name='logout_regular'),
-]
-
-if cas_enabled:
-    import cas.views
-    urlpatterns += [
-        url(r'^login/sso/$',cas.views.login, name='login_sso'),
-        url(r'^logout/sso/$',cas.views.logout, name='logout_sso'),
-    ]
-
-urlpatterns += [
-    url(r'^admin/login/$', login, name='admin:login'),
+    url(r'^login/$',cas.views.login, name='login'),
+    url(r'^logout/$',cas.views.logout, name='logout'),
+    url(r'^admin/login/$', cas.views.login, name='admin:login'),
     url(r'^admin/', admin.site.urls),
     url(r'^manage/', include(uvt_user.urls)),
     url(r'^', include(autodidact.urls)),

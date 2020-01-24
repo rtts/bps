@@ -10,7 +10,6 @@ Build-Depends:
         python3,
         dh-python,
         python3-setuptools,
-       	python3-markdown,
        	python3-pil,
         python3-ldap3,
         python3-bleach,
@@ -22,14 +21,12 @@ Package: bps
 Architecture: all
 Depends: ${python3:Depends}, ${misc:Depends}, libjs-jquery, makepasswd,
         pandoc,
-        python3-six,
-        python3-markdown,
         python3-pil,
         python3-ldap3,
         python3-bleach,
         python3-django,
         python3-xlsxwriter,
-Recommends: apache2 (>= 2.4.10~), libapache2-mod-wsgi-py3, python3-psycopg2
+Recommends: apache2, libapache2-mod-wsgi-py3, python3-psycopg2
 Description: Tilburg University web application for learning statistics
  Best Practices in Statistics (BPS) is a web application for learning
  statistics. Students can learn and practice statistical techniques in

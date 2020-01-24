@@ -3,8 +3,9 @@ bps (2.0.0~rc1) stable; urgency=medium
   * Merge autodidact with bps
   * Various functional improvements
   * Database migrations
+  * Always use SSO, disallow other login methods
 
- -- Jaap Joris Vens <jj@telos.rtts.eu>  Fri, 13 Dec 2019 16:06:13 +0100
+ -- Jaap Joris Vens <jj@telos.rtts.eu>  Fri, 24 Jan 2020 12:39:33 +0100
 
 bps (1.0.5~rc1) stable; urgency=medium
 
