@@ -8,7 +8,6 @@ class PandocEditor(forms.widgets.Textarea):
     def render(self, name, value, attrs={}, renderer=None):
         if hasattr(value, 'raw'):
             value = value.raw
-        # return super().render(name, value, attrs)
         context = self.get_context(name, value, attrs)
         template = loader.get_template('pandocfield/widget.html')
         return template.render(context)

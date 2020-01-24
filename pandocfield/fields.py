@@ -86,11 +86,6 @@ class PandocField(models.TextField):
         else:
             return super(PandocField, self).to_python(value)
 
-    def formfield(self, **kwargs):
-        defaults = {'widget': widgets.PandocEditor}
-        defaults.update(kwargs)
-        return super(PandocField, self).formfield(**defaults)
-
 # Use the PandocEditorWidget in the Admin
 from django.contrib.admin.options import FORMFIELD_FOR_DBFIELD_DEFAULTS
 FORMFIELD_FOR_DBFIELD_DEFAULTS[PandocField] = {
