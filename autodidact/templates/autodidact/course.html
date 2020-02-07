@@ -5,13 +5,41 @@
   <script src="{% static 'mathjax/MathJax.js' %}?config=TeX-AMS-MML_HTMLorMML"></script>
 {% endblock %}
 
-{% block navigation %}
-{% include 'autodidact/include/course_navigation.html' %}
-{% endblock %}
-
 {% block content %}
-<section>
-<h1>{{course.name}}</h1>
-{{course.description|safe}}
-</section>
+  <section class="breadcrumbs">
+    <div class="wrapper">
+      <nav>
+        <ul>
+          <li><a href="/">BPS</a></li>
+          <li><a href="{{course.get_absolute_url}}">{{course}}</a></li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrapper">
+      <h1>{{course.name}}</h1>
+      {{course.description|safe}}
+
+      <h2>Available sessions</h2>
+      <ul>
+        {% for session in course.sessions.all %}
+          {% if session.active %}
+            <li><a href="{% url 'session' course.slug session.number %}">Session {{session.number}}{% if session.name %}: {{session.name}}{% endif %}</a></li>
+          {% elif user.is_staff %}
+            <li><a href="{% url 'session' course.slug session.number %}">Session {{session.number}}{% if session.name %}: {{session.name}}{% endif %}</a></li>
+          {% endif %}
+        {% empty %}
+          <li class="empty">No sessions available</li>
+        {% endfor %}
+        {% if user.is_staff and perms.autodidact.add_session %}
+          <li><div class="add"><a class="editlink" href="{% url 'add_session' course.slug %}">Add a session</a></div></li>
+        {% endif %}
+        {% if user.is_staff and perms.autodidact.add_course %}
+          <li><div class="add"><a class="editlink" href="{% url 'copy_course' course.slug %}">Duplicate this course</a></div></li>
+        {% endif %}
+      </ul>
+    </div>
+  </section>
 {% endblock %}

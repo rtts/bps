@@ -5,13 +5,13 @@ from autodidact.models import *
 
 def needs_course(view):
     @wraps(view)
-    def wrapper(request, course_slug, *args, **kwargs):
-        if isinstance(course_slug, Course):
-            course = course_slug
+    def wrapper(request, slug, *args, **kwargs):
+        if isinstance(slug, Course):
+            course = slug
         elif request.user.is_staff:
-            course = get_object_or_404(Course, slug=course_slug)
+            course = get_object_or_404(Course, slug=slug)
         else:
-            course = get_object_or_404(Course, slug=course_slug, active=True)
+            course = get_object_or_404(Course, slug=slug, active=True)
         return view(request, course, *args, **kwargs)
     return wrapper
 

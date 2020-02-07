@@ -1,0 +1,147 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-13 11:47+0100\n"
+"PO-Revision-Date: 2020-01-13 11:49+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apps.py:7
+msgid "Content Management System"
+msgstr "Content Beheer"
+
+#: forms.py:11
+msgid "Your email address"
+msgstr "Uw email adres"
+
+#: forms.py:12 forms.py:13
+msgid "Your message"
+msgstr "Uw bericht"
+
+#: forms.py:28
+#, python-format
+msgid "Contact form at %(hostname)s."
+msgstr "%(hostname)s contactformulier"
+
+#: models.py:63 models.py:89
+msgid "number"
+msgstr "nummer"
+
+#: models.py:64 models.py:91
+msgid "title"
+msgstr "titel"
+
+#: models.py:65
+msgid "slug"
+msgstr "slug"
+
+#: models.py:66
+msgid "visible in menu"
+msgstr "zichtbaar in het menu"
+
+#: models.py:70
+msgid "New page"
+msgstr "Nieuwe pagina"
+
+#: models.py:80
+msgid "Page"
+msgstr "Pagina"
+
+#: models.py:81
+msgid "Pages"
+msgstr "Pagina’s"
+
+#: models.py:87
+msgid "page"
+msgstr "pagina"
+
+#: models.py:88
+msgid "type"
+msgstr "type"
+
+#: models.py:92
+msgid "content"
+msgstr "inhoud"
+
+#: models.py:93
+msgid "image"
+msgstr "afbeelding"
+
+#: models.py:94
+msgid "video"
+msgstr "video"
+
+#: models.py:94
+msgid "Paste a YouTube, Vimeo, or SoundCloud link"
+msgstr "Plak hier een YouTube, Vimeo of SoundCloud link"
+
+#: models.py:95
+msgid "button text"
+msgstr "button tekst"
+
+#: models.py:96
+msgid "button link"
+msgstr "button link"
+
+#: models.py:103
+msgid "New section"
+msgstr "Nieuwe sectie"
+
+#: models.py:105
+msgid "Untitled"
+msgstr "Geen titel"
+
+#: models.py:111
+msgid "section"
+msgstr "sectie"
+
+#: models.py:112
+msgid "sections"
+msgstr "secties"
+
+#: templates/cms/base.html:33
+msgid "new page"
+msgstr "nieuwe pagina"
+
+#: templates/cms/edit.html:16
+msgid "Please correct the error(s) below and save again"
+msgstr "Herstel a.u.b. de fout(en) hieronder en sla nogmaals op"
+
+#: templates/cms/edit.html:46
+msgid "new"
+msgstr "nieuwe"
+
+#: templates/cms/edit.html:54
+msgid "save"
+msgstr "opslaan"
+
+#: templates/cms/editlink.html:5
+msgid "edit this section"
+msgstr "bewerk deze sectie"
+
+#: templates/cms/page.html:15 templates/cms/page.html:17
+msgid "edit this page"
+msgstr "bewerk deze pagina"
+
+#: templates/cms/page.html:20
+msgid "login"
+msgstr "inloggen"
+
+#: templates/cms/page.html:28
+msgid "new section"
+msgstr "nieuwe sectie"
+
+#: templates/registration/login.html:14 templates/registration/login.html:18
+msgid "Log in"
+msgstr "Inloggen"

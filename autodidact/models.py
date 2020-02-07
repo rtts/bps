@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
+from django.utils.safestring import mark_safe
 from pandocfield import PandocField
 from numberedmodel.models import NumberedModel
 from .utils import clean
@@ -91,8 +92,7 @@ class Course(NumberedModel):
         return self.slug.replace('-', ' ').replace('mto', 'mto-').upper()
 
     def url(self):
-        return '<a href="%(url)s">%(url)s</a>' % {'url': self.get_absolute_url()}
-    url.allow_tags = True
+        return mark_safe('<a href="%(url)s">%(url)s</a>' % {'url': self.get_absolute_url()})
 
     def get_absolute_url(self):
         return reverse('course', args=[self.slug])

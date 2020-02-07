@@ -36,6 +36,8 @@ TIME_ZONE = 'Europe/Amsterdam'
 USE_I18N = False
 USE_L10N = False
 USE_TZ = True
+CMS_PAGE_MODEL = 'pages.Page'
+CMS_SECTION_MODEL = 'pages.Section'
 if not DEBUG:
     SECURE_SSL_REDIRECT   = True
     SESSION_COOKIE_SECURE = True
@@ -49,8 +51,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'polymorphic',
+    'embed_video',
+    'easy_thumbnails',
     'pandocfield',
     'uvt_user',
+    'pages',
+    'cms',
     'cas',
 ]
 

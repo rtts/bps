@@ -1,96 +1,96 @@
 {% load static %}
 {% load autodidact %}
 
-<section class="step{% if fullscreen %} fullscreen{% endif %}">
-  <form method="POST" action="{% url 'assignment' course.slug session.number assignment.number %}?step={{step.number}}{% if step.fullscreen %}&fullscreen{% endif %}">
-    {% csrf_token %}
+<section class="step">
+  <div class="wrapper">
+    <form method="POST" action="{% url 'assignment' course.slug session.number assignment.number %}?step={{step.number}}">
+      {% csrf_token %}
 
-    <table class="wizard">
-      <tr>
-	<td class="header">
-          <a href="{% url 'assignment' course.slug session.number assignment.number %}?step={{step.number}}{% if not step.fullscreen %}&fullscreen{% endif %}"><img id="fullscreen_toggle" src="{% if step.fullscreen %}{% static 'fullscreen_off.png' %}{% else %}{% static 'fullscreen_on.png' %}{% endif %}" width="24" height="24"></a>
-	  <img id="checkbox" src="{% if step.completedstep.passed %}{% static 'checked.png' %}{% else %}{% static 'unchecked.png' %}{% endif %}" alt="Completed" width="24" height="24">
-	  <h1>Assignment {{assignment.number}} &ndash; step {{step.number}} of {{steps|length}}</h1>
-	</td>
-      </tr>
-
-      <tr>
-	<td class="content">
-          {{step.description|upload_urls|insert_images}}
-	</td>
-      </tr>
-
-      {% if step.answer_required %}
+      <table class="wizard">
         <tr>
-	  <td class="answer">
-            {% if step.graded %}
-              {% if step.completedstep.passed %}
-                <div class="correct">
-                  Correct
-                </div>
-              {% elif step.please_try_again %}
-                <div class="incorrect">
-                  Incorrect. Please try again.
-                </div>
-              {% endif %}
-            {% endif %}
-            Your answer
-            {% if step.multiple_choice %}
-              <ul class="answers">
-                {% for answer in step.answers %}
-                  <li>
-                    <input type="{% if step.multiple_answers %}checkbox{% else %}radio{% endif %}" name="answer" value="{{answer}}" id="answer_{{forloop.counter}}" {% if answer in step.given_values %}checked{% endif %}>
-                    <label for="answer_{{forloop.counter}}">{{answer}}</label>
-                  </li>
-                {% endfor %}
-              </ul>
-              {% if step.multiple_answers %}
-                <div><small>(multiple answers are allowed)</small></div>
-              {% endif %}
-            {% else %}
-	      <textarea id="answerbox" name="answer">{{step.given_values.0}}</textarea>
-            {% endif %}
+	  <td class="header">
+	    <img id="checkbox" src="{% if step.completedstep.passed %}{% static 'checked.png' %}{% else %}{% static 'unchecked.png' %}{% endif %}" alt="Completed" width="24" height="24">
+	    <h1>Assignment {{assignment.number}} &ndash; step {{step.number}} of {{steps|length}}</h1>
 	  </td>
         </tr>
-        {% if step.graded and user.is_staff %}
+
+        <tr>
+	  <td class="content">
+            {{step.description|upload_urls|insert_images}}
+	  </td>
+        </tr>
+
+        {% if step.answer_required %}
           <tr>
-            <td align="right">
-              <small><i>(the correct answer is: {% for a in step.right_values %}{{a}}{% if not forloop.last %}, {% endif %}{% endfor %})</i></small>
-            </td>
+	    <td class="answer">
+              {% if step.graded %}
+                {% if step.completedstep.passed %}
+                  <div class="correct">
+                    Correct
+                  </div>
+                {% elif step.please_try_again %}
+                  <div class="incorrect">
+                    Incorrect. Please try again.
+                  </div>
+                {% endif %}
+              {% endif %}
+              Your answer
+              {% if step.multiple_choice %}
+                <ul class="answers">
+                  {% for answer in step.answers %}
+                    <li>
+                      <input type="{% if step.multiple_answers %}checkbox{% else %}radio{% endif %}" name="answer" value="{{answer}}" id="answer_{{forloop.counter}}" {% if answer in step.given_values %}checked{% endif %}>
+                      <label for="answer_{{forloop.counter}}">{{answer}}</label>
+                    </li>
+                  {% endfor %}
+                </ul>
+                {% if step.multiple_answers %}
+                  <div><small>(multiple answers are allowed)</small></div>
+                {% endif %}
+              {% else %}
+	        <textarea id="answerbox" name="answer">{{step.given_values.0}}</textarea>
+              {% endif %}
+	    </td>
           </tr>
-        {% endif %}
-      {% endif %}
-    </table>
-
-    <div class="step_clarifications">
-      {% for hint in step.clarifications.all %}
-        <input name="clarification" class="toggle" id="hint{{forloop.counter}}" type="radio">
-        <label for="hint{{forloop.counter}}" style="left: calc({{forloop.counter}} * 16px)"></label>
-        <div class="clarification">
-          {% if hint.image %}
-            <img src="{{hint.image.url}}">
+          {% if step.graded and user.is_staff %}
+            <tr>
+              <td align="right">
+                <small><i>(the correct answer is: {% for a in step.right_values %}{{a}}{% if not forloop.last %}, {% endif %}{% endfor %})</i></small>
+              </td>
+            </tr>
           {% endif %}
-          {{hint.description|safe}}
-        </div>
-      {% endfor %}
-    </div>
+        {% endif %}
+      </table>
 
-    <div class="step_footer">
-      <ul class="progress">
-        <li>
-	  <input class="previous" type="submit" name="previous" value="« Previous" {% if step.is_first %}disabled{% endif %}>
-        </li>
-
-        {% for s in steps %}
-          <li>
-            <input class="step {% if s == step %}current{% elif s.passed %}passed{% endif %}" type="submit" name="step" value="{{s.number}}" {% if s == step %}disabled{% endif %}>
-           </li>
+      <div class="step_clarifications">
+        {% for hint in step.clarifications.all %}
+          <input name="clarification" class="toggle" id="hint{{forloop.counter}}" type="radio">
+          <label for="hint{{forloop.counter}}" style="left: calc({{forloop.counter}} * 16px)"></label>
+          <div class="clarification">
+            {% if hint.image %}
+              <img src="{{hint.image.url}}">
+            {% endif %}
+            {{hint.description|safe}}
+          </div>
         {% endfor %}
-        <li>
-          <input class="next" type="submit" name="next" value="{% if step.is_last %}Finish!{% else %}Next{% endif %} »">
-        </li>
-      </ul>
-    </div>
-  </form>
+      </div>
 
+      <div class="step_footer">
+        <ul class="progress">
+          <li>
+	    <input class="previous" type="submit" name="previous" value="« Previous" {% if step.is_first %}disabled{% endif %}>
+          </li>
+
+          {% for s in steps %}
+            <li>
+              <input class="step {% if s == step %}current{% elif s.passed %}passed{% endif %}" type="submit" name="step" value="{{s.number}}" {% if s == step %}disabled{% endif %}>
+            </li>
+          {% endfor %}
+          <li>
+            <input class="next" type="submit" name="next" value="{% if step.is_last %}Finish!{% else %}Next{% endif %} »">
+          </li>
+        </ul>
+      </div>
+    </form>
+  </div>
 </section>

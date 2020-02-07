@@ -6,6 +6,7 @@
   <head>
     <meta charset="utf-8">
     <title>{% block title %}Best Practices in Statistics - Tilburg University{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'main7.css' %}"/>
     <link rel="stylesheet" href="{% static 'uvt.css' %}"/>
     {% block extrahead %}{% endblock %}
@@ -13,44 +14,32 @@
   <body>
 
     {% block header %}
-      <header id="logo">
-        <div class="logo_container">
-          <img src="{% static 'tiulogo.jpg' %}">
-          <img src="{% static 'tiuslogan.jpg' %}">
-        </div>
-        {% if user.is_authenticated %}
-          <div class="user_menu">
-            <ul>
-              <li>Logged in as <b>{{request.user.username}}</b></li>
-              {% if request.user.is_staff %}
-                <li><a href="{% url 'manage' %}">Management console</a></li>
-                <li><a href="{% url 'documentation' %}">Documentation</a></li>
-              {% endif %}
-              <li><a href="{% url 'logout' %}">Log out</a></li>
-            </ul>
+      <header>
+        <div class="wrapper">
+          <div class="logo">
+            <a href="/">
+              <svg width="173" height="44"><title>Tilburg University</title><use href="{% static 'dist.svg' %}#tiu-logo"></use></svg>
+              <svg width="140" height="17" class="payoff"><title>Understanding Society</title><use href="{% static 'dist.svg' %}#tiu-logo-payoff"></use></svg>
+            </a>
           </div>
-        {% endif %}
-      </header>
-
-      <header id="banner">
-        <div id="banner_image">
-          <div id="banner_text">
-            {% block banner %}
-              <h1>Best Practices in Statistics</h1>
-              <h2>Online Statistics Practice for Students in the Social Sciences</h2>
-            {% endblock %}
-          </div>
+          {% if user.is_authenticated %}
+            <div class="menu">
+              <ul>
+                <li>Logged in as <b>{{request.user.username}}</b></li>
+                {% if request.user.is_staff %}
+                  <li><a href="{% url 'manage' %}">Management console</a></li>
+                  <li><a href="{% url 'documentation' %}">Documentation</a></li>
+                {% endif %}
+                <li><a href="{% url 'logout' %}">Log out</a></li>
+              </ul>
+            </div>
+          {% endif %}
         </div>
       </header>
     {% endblock %}
 
     {% block main %}
       <main>
-        <nav>
-	  {% block navigation %}
-	  {% endblock %}
-        </nav>
-
         <div id="editor">
           {% autodidact_editor %}
         </div>
@@ -64,18 +53,21 @@
 
     {% block footer %}
       <footer>
-        <p>
-          BPS version <span id="bps_version">{% bps_version %}</span><br>
-        </p>
-        <p>
-          Copyright {% now 'Y' %} Tilburg University.
-        </p>
-        <p>
-          BPS is <a target="_blank" href="https://github.com/rtts/bps">free software</a>: you can modify and/or redistribute it under the terms of the <a target="_blank" href="https://www.gnu.org/licenses/agpl-3.0-standalone.html">GNU Affero General Public License</a>.
-        </p>
+        <div class="wrapper">
+          <p>
+            BPS version <span id="bps_version">{% bps_version %}</span><br>
+          </p>
+          <p>
+            Copyright {% now 'Y' %} Tilburg University.
+          </p>
+          <p>
+            BPS is <a target="_blank" href="https://github.com/rtts/bps">free software</a>: you can modify and/or redistribute it under the terms of the <a target="_blank" href="https://www.gnu.org/licenses/agpl-3.0-standalone.html">GNU Affero General Public License</a>.
+          </p>
+        </div>
       </footer>
     {% endblock %}
 
     {% block extrascript %}{% endblock %}
+    {% block extrabody %}{% endblock %}
   </body>
 </html>
