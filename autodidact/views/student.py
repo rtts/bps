@@ -1,31 +1,11 @@
 import random
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+
 from autodidact import gift
-from autodidact.utils import *
-from autodidact.models import *
-from autodidact.views.decorators import *
-
-@login_required
-def homepage(request):
-    '''Serves the homepage'''
-    bachelor_programs = Programme.objects.filter(degree=10)
-    premaster_programs = Programme.objects.filter(degree=20)
-    master_programs = Programme.objects.filter(degree=30)
-    tags = Tag.objects.all()
-    return render(request, 'autodidact/homepage.html', {
-        'bachelor_programs': bachelor_programs,
-        'premaster_programs': premaster_programs,
-        'master_programs': master_programs,
-        'tags': tags,
-    })
-
-@login_required
-def program(request, slug):
-    program = get_object_or_404(Programme, slug=slug)
-    return render(request, 'autodidact/program.html', {
-        'program': program,
-    })
+from autodidact.utils import calculate_progress
+from autodidact.models import Tag, CompletedStep
+from autodidact.views.decorators import needs_course, needs_session, needs_assignment, needs_step
 
 @login_required
 def tag(request, slug):
@@ -45,56 +25,17 @@ def course(request, course):
 
 @login_required
 @needs_course
-def topic(request, course, topic_nr):
-    '''Serves a topic page that belong to a course
-    '''
-    topic = get_object_or_404(Topic, course=course, number=topic_nr)
-    return render(request, 'autodidact/topic.html', {
-        'topic': topic,
-        'course': course,
-    })
-
-@login_required
-@needs_course
 @needs_session
 def session(request, course, session):
     '''Serves the session overview page
     '''
-    user = request.user
-    current_class = None
-    ticket_error = False
     assignments = session.assignments.prefetch_related('steps')
-    students = None
+    calculate_progress(request.user, assignments)
 
-    calculate_progress(user, assignments)
-
-    if session.registration_enabled:
-        if request.method == 'POST':
-            ticket = request.POST.get('ticket')
-            try:
-                newclass = Class.objects.get(ticket=ticket, dismissed=False)
-            except Class.DoesNotExist:
-                newclass = None
-            if newclass and newclass.session == session:
-                newclass.students.add(user)
-                return redirect(session)
-            else:
-                ticket_error = ticket
-
-        current_class = get_current_class(session, user)
-        if user.is_staff and current_class:
-            students = current_class.students.order_by('last_name')
-            for s in students:
-                s.progress = calculate_progress(s, assignments)
-
-    return render(request, 'autodidact/session_base.html', {
-        'program': program,
+    return render(request, 'autodidact/session.html', {
         'course': course,
         'session': session,
         'assignments': assignments,
-        'students': students,
-        'current_class': current_class,
-        'ticket_error': ticket_error,
     })
 
 @login_required
@@ -157,8 +98,7 @@ def assignment(request, course, session, assignment, step):
     except ValueError:
         pass
 
-    template = 'autodidact/assignment_fullscreen.html' if step.fullscreen else 'autodidact/assignment.html'
-    return render(request, template, {
+    return render(request, 'autodidact/assignment.html', {
         'course': course,
         'session': session,
         'assignment': assignment,

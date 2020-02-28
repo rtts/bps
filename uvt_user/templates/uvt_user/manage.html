@@ -1,19 +1,22 @@
 {% extends 'base.html' %}
 
-{% block navigation %}
-  <ul>
-    <li class="visitedPage"><a href="/">Home</a></li>
-    <li class="currentPage"><a href="{% url 'manage' %}">Management console</a></li>
-    <li class="futurePage"><a href="{% url 'lookup_user' %}">Look up user</a></li>
-    <li class="futurePage"><a href="{% url 'admin:autodidact_course_add' %}">Create a new course</a></li>
-    <li class="futurePage"><a href="{% url 'admin:index' %}">BPS Admin Interface</a></li>
-  </ul>
-{% endblock %}
-
 {% block content %}
-<section>
-  <h1>Management console</h1>
-  <p>
-    Welcome to the exclusive staff member-only area! Here you can perform all kinds of administrative tasks, such as look up students, add other staff members, and manage courses. Please choose one of the options from the menu on the left. The goal is to centralize all management related stuff on this page, so if you have a request for a management feature please send an email to <a href="mailto:J.J.Vens@uvt.nl">J.J.Vens@uvt.nl</a>
-</section>
+  <section class="breadcrumbs">
+    <div class="wrapper">
+      <ul>
+        <li><a href="/">BPS</a></li>
+        <li><a href="{% url 'manage' %}">Management console</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrapper">
+      <h1>Management console</h1>
+      <p>
+        Welcome to the exclusive staff member-only area! Here you can perform all kinds of administrative tasks, such as look up students, add other staff members, and manage courses. Please choose one of the options from the menu on the left. The goal is to centralize all management related stuff on this page, so if you have a request for a management feature please send an email to <a href="mailto:J.J.Vens@uvt.nl">J.J.Vens@uvt.nl</a>
+      </p>
+    </div>
+  </section>
+
 {% endblock %}

@@ -9,32 +9,6 @@ from pandocfield import PandocField
 from numberedmodel.models import NumberedModel
 from .utils import clean
 
-TICKET_LENGTH = 4
-
-class Page(models.Model):
-    slug = models.SlugField(blank=True, unique=True)
-    title = models.CharField(max_length=255, null=True)
-    content = PandocField(blank=True)
-
-    def __str__(self):
-        return str(self.title)
-
-    def get_absolute_url(self):
-        if self.slug:
-            return reverse('documentation', args=[self.slug])
-        else:
-            return reverse('documentation')
-
-class PageFile(models.Model):
-    page = models.ForeignKey(Page, related_name='files', on_delete=models.CASCADE)
-    file = models.FileField()
-
-    def __str__(self):
-        return os.path.basename(str(self.file))
-
-    class Meta:
-        ordering = ['file']
-
 class Tag(models.Model):
     slug = models.SlugField('name', unique=True)
 
@@ -47,39 +21,8 @@ class Tag(models.Model):
     class Meta:
         ordering = ['slug']
 
-class Programme(NumberedModel):
-    DEGREES = [
-        (10, 'Bachelor'),
-        (20, 'Pre-master'),
-        (30, 'Master'),
-    ]
-    order = models.PositiveIntegerField(blank=True)
-    degree = models.PositiveIntegerField(choices=DEGREES, default=10)
-    name = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True, null=True)
-    description = PandocField(blank=True)
-
-    def __str__(self):
-        return self.name
-
-    def number_with_respect_to(self):
-        return self.__class__.objects.filter(degree=self.degree)
-
-    def has_active_courses(self):
-        return self.courses.filter(active=True).exists()
-
-    def get_absolute_url(self):
-        return reverse('program', args=[self.slug])
-
-#     def courses(self):
-#         return [c.course for c in self.clones]
-
-    class Meta:
-        ordering = ['order']
-
 class Course(NumberedModel):
     order = models.PositiveIntegerField(blank=True)
-    programs = models.ManyToManyField(Programme, related_name='courses')
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     description = PandocField(blank=True)
@@ -99,24 +42,6 @@ class Course(NumberedModel):
 
     class Meta:
         ordering = ['order']
-
-class Topic(NumberedModel):
-    number = models.PositiveIntegerField(blank=True)
-    course = models.ForeignKey(Course, related_name="topics", on_delete=models.CASCADE)
-    name = models.CharField(max_length=255, blank=True)
-    description = PandocField(blank=True)
-
-    def __str__(self):
-        return self.name if self.name else 'Topic {}'.format(self.number)
-
-    def get_absolute_url(self):
-        return reverse('topic', args=[self.course.slug, self.number])
-
-    def number_with_respect_to(self):
-        return self.course.topics.all()
-
-    class Meta:
-        ordering = ['number']
 
 class Session(NumberedModel):
     number = models.PositiveIntegerField(blank=True)
@@ -221,24 +146,6 @@ class CompletedStep(models.Model):
 
     class Meta:
         verbose_name_plural = 'completed steps'
-
-class Class(models.Model):
-    session = models.ForeignKey(Session, related_name='classes', on_delete=models.CASCADE)
-    number = models.CharField(max_length=16)
-    ticket = models.CharField(unique=True, max_length=16)
-    students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='attends', blank=True)
-    teacher = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='teaches', blank=True, null=True, on_delete=models.SET_NULL)
-    dismissed = models.BooleanField(default=False)
-    date = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return 'Class %s of %s' % (self.number, str(self.session))
-
-    def nr_of_students(self):
-        return self.students.count()
-
-    class Meta:
-        verbose_name_plural = 'classes'
 
 class Download(models.Model):
     session = models.ForeignKey(Session, related_name='downloads', on_delete=models.CASCADE)

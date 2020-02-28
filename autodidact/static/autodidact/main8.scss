@@ -8,6 +8,7 @@ $reallylightgrey: #f4f3f1;
 $bordergrey: #ccc;
 $red: #f45b3d;
 $green: #390;
+$linkcolor: #006094;
 $step_color: $reallylightgrey;
 $current_step_color: white;
 $passed_step_color: #dcf7dc;
@@ -23,7 +24,9 @@ body, html {
   padding: 0;
 }
 
-$linkcolor: #006094;
+section div.title {
+  text-align: left;
+}
 
 a {
   color: $linkcolor;
@@ -110,18 +113,11 @@ img {
   max-width: 100%;
 }
 
-div.wrapper {
-  max-width: $max-width;
-  margin: auto;
-  padding: 10px;
-  box-sizing: border-box;
-}
-
 header {
   border-bottom: 1px solid #ddddd8;
 
   div.wrapper {
-    padding: 0;
+    padding: 7px;
     display: flex;
     justify-content: space-between;
     justify-content: center;
@@ -195,12 +191,13 @@ article {
 }
 
 section {
-  margin: auto;
+  margin: 2em 0;
   position: relative;
 }
 
-section.imagesection {
+section.image {
   padding: 0;
+  margin: 0;
   max-width: none;
   div.image {
     img {
@@ -208,27 +205,10 @@ section.imagesection {
       width: 100%;
     }
   }
-
-  div.title h1 {
-    text-align: center;
-    background: $darkblue;
-    color: white;
-    font-size: 1.36rem;
-    font-weight: 700;
-    line-height: 1.2;
-    padding: 15px;
-    margin: 0;
-  }
-
-  div.edit {
-    position: absolute;
-    right: 5px;
-    bottom: 5px;
-  }
 }
 
 section.breadcrumbs {
-  margin: 10px 0;
+  margin: 1em 0;
 
   ul {
     list-style: none;
@@ -254,12 +234,6 @@ section.breadcrumbs {
         display: none;
       }
     }
-  }
-
-  div.edit {
-    position: absolute;
-    top: 0;
-    right: 5px;
   }
 }
 
@@ -318,61 +292,21 @@ div.add {
 }
 
 a.editlink, .staff {
-  font-size: 12px;
+  font-size: 0.8em;
   font-weight: bold;
   color: #f45b3d !important;
+  &:before {
+    content: '[ ';
+  }
+  &:after {
+    content: ' ]';
+  }
 }
 
 .remove_student {
   position: absolute;
   top: -23px;
   right: 0;
-}
-
-section.attendance {
-  float: right;
-  z-index: 1000;
-  width: 180px;
-  background: $reallylightgrey;
-  border: 1px solid $bordergrey;
-  padding: 10px;
-  font-size: 11px;
-  line-height: 1.5;
-  margin-left: 20px;
-
-  hr {
-    margin-top: 20px;
-  }
-
-  form {
-    text-align: right;
-    margin-top: 15px;
-
-    .ticket_error {
-      border: 1px solid red;
-    }
-
-    .ticket_error_text {
-      color: red;
-    }
-
-    input {
-      margin: 2px;
-      box-sizing: border-box;
-    }
-    input[type=text] {
-      width: 60px;
-    }
-    input[type=submit] {
-      min-width: 60px;
-    }
-  }
-
-  div.ticket {
-    font-size: 2em;
-    font-weight: bold;
-    text-align: center;
-  }
 }
 
 section.students {
@@ -473,6 +407,8 @@ section.answers {
     }
 
     td {
+      padding: .5em 0;
+      padding-top: 4px;
       vertical-align: top;
     }
     td.step {
@@ -759,162 +695,4 @@ form.management {
        url(lato-light-webfont.woff) format("woff");
   font-weight:300;
   font-style:normal;
-}
-
-div.edit {
-  text-align: center;
-  &.page {
-    position: fixed;
-    left: 1em;
-    top: 1em;
-    z-index: 1000;
-  }
-}
-
-div.edit a, div.edit button, a.edit{
-  font-family: inherit;
-  font-size: 1rem !important;
-  font-weight: normal !important;
-  color: red !important;
-  text-transform: none !important;
-  text-decoration: none;
-  color: inherit;
-  border: none;
-  display: inline;
-  background: none;
-  cursor: pointer;
-
-  &:before {
-    content: '[ ';
-  }
-  &:after {
-    content: ' ]';
-  }
-}
-
-form.cms {
-  div.wrapper {
-    overflow: hidden;
-  }
-
-  div.global_error {
-    border: 2px dotted red;
-    padding: 10px;
-    margin: 1em -10px;
-    background: #f001;
-    color: red;
-    font-weight: bold;
-  }
-
-  fieldset {
-    padding: 2em;
-    margin-bottom: 2em;
-    border: 0.5px solid black;
-    border-radius: 3px;
-
-    legend {
-      font-size: 1.15em;
-    }
-  }
-
-  div.formfield {
-    margin: 5px 0;
-    padding: 10px 0;
-    clear: both;
-    box-sizing: border-box;
-
-    &#type, &#number {
-      width: 75%;
-      clear: none;
-      float: left;
-    }
-    &#number {
-      width: 20%;
-      float: right;
-    }
-  }
-  div.formfield.error {
-    border: 2px dotted red;
-    padding: 10px;
-    margin: 0 -10px;
-    background: #f001;
-  }
-  div.formfield.required {
-    div.label {
-      font-weight: 700;
-    }
-    input, select, textarea {
-      border: 1px solid black;
-    }
-  }
-
-  div.label {
-    font-size: 0.8rem;
-    font-weight: 400;
-  }
-
-  div.input {
-    overflow: hidden;
-    margin: 5px 0;
-  }
-
-  div.helptext, span.required {
-    color: #666;
-    font-size: 12px !important;
-    font-weight: 400 !important;
-  }
-
-  span.required {
-    font-style: italic;
-  }
-
-  input, select, textarea {
-    background: white;
-    color: black;
-    border: 1px solid #aaa;
-    font-size: 1rem;
-    display: inline-block;
-    width: 100%;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 5px;
-  }
-  textarea {
-    height: 25em;
-  }
-
-  input[type=checkbox] {
-    width: auto;
-  }
-
-  select {
-    background: white;
-  }
-
-  div.filefield {
-    border: 1px solid #aaa;
-    background: white;
-    padding: 4px;
-
-    input { border: none }
-  }
-
-  ul.errorlist {
-    margin: 0;
-    margin-bottom: 1em;
-    padding: 0;
-    list-style: none;
-    color: red;
-    font-size: 12px !important;
-
-    li {
-      margin: 0;
-      padding: 0;
-    }
-  }
-
-  .errors {
-    color: red;
-    font-weight: bold;
-  }
 }

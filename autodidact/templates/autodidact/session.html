@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load autodidact %}
+
+{% block extrahead %}
+  <script src="{% static 'mathjax/MathJax.js' %}?config=TeX-AMS-MML_HTMLorMML"></script>
+{% endblock %}
+
+{% block content %}
+  <section class="breadcrumbs">
+    <div class="wrapper">
+      <ul>
+        <li><a href="/">BPS</a></li>
+        <li><a href="{{course.get_absolute_url}}">{{course}}</a></li>
+        <li><a href="{{session.get_absolute_url}}">Session {{session.number}}</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="session description">
+    <div class="wrapper">
+      <h1>Session {{session.number}}: {{session.name}}</h1>
+      {% for presentation in session.presentations.all %}
+        <iframe src="{% static 'ViewerJS/index.html' %}#{{presentation.url}}" width="400" height="300" allowfullscreen></iframe>
+      {% endfor %}
+      {{session.description|upload_urls}}
+    </div>
+  </section>
+
+  <section class="session progress">
+    <div class="wrapper">
+      <h1>Your progress:</h1>
+      {% include 'autodidact/include/progress.html' %}
+    </div>
+  </section>
+
+  <section class="session answers">
+    <div class="wrapper">
+      <h1>Your answers:</h1>
+      {% include 'autodidact/include/answers.html' %}
+    </div>
+  </section>
+
+  {% if user.is_staff and perms.autodidact.change_session %}
+    <div class="edit page">
+      <a class="editlink" href="{% url 'admin:autodidact_session_change' session.pk %}"><img src="{% static 'cms/edit.svg' %}"></a>
+    </div>
+  {% endif %}
+
+{% endblock %}

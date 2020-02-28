@@ -7,8 +7,10 @@
     <meta charset="utf-8">
     <title>{% block title %}Best Practices in Statistics - Tilburg University{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'main7.css' %}"/>
-    <link rel="stylesheet" href="{% static 'uvt.css' %}"/>
+    <link rel="stylesheet" href="{% static 'cms/cms.scss.css' %}">
+    <link rel="stylesheet" href="{% static 'cms/hamburgers.css' %}">
+    <link rel="stylesheet" href="{% static 'autodidact/main8.scss.css' %}"/>
+    <link rel="stylesheet" href="{% static 'uvt_user/uvt.css' %}"/>
     {% block extrahead %}{% endblock %}
   </head>
   <body>
@@ -18,8 +20,8 @@
         <div class="wrapper">
           <div class="logo">
             <a href="/">
-              <svg width="173" height="44"><title>Tilburg University</title><use href="{% static 'dist.svg' %}#tiu-logo"></use></svg>
-              <svg width="140" height="17" class="payoff"><title>Understanding Society</title><use href="{% static 'dist.svg' %}#tiu-logo-payoff"></use></svg>
+              <svg width="173" height="44"><title>Tilburg University</title><use href="{% static 'uvt_user/dist.svg' %}#tiu-logo"></use></svg>
+              <svg width="140" height="17" class="payoff"><title>Understanding Society</title><use href="{% static 'uvt_user/dist.svg' %}#tiu-logo-payoff"></use></svg>
             </a>
           </div>
           {% if user.is_authenticated %}
@@ -27,8 +29,7 @@
               <ul>
                 <li>Logged in as <b>{{request.user.username}}</b></li>
                 {% if request.user.is_staff %}
-                  <li><a href="{% url 'manage' %}">Management console</a></li>
-                  <li><a href="{% url 'documentation' %}">Documentation</a></li>
+                  <li><a href="{% url 'manage' %}">Manage</a></li>
                 {% endif %}
                 <li><a href="{% url 'logout' %}">Log out</a></li>
               </ul>
@@ -40,14 +41,8 @@
 
     {% block main %}
       <main>
-        <div id="editor">
-          {% autodidact_editor %}
-        </div>
-
-        <article>
-          {% block content %}
-          {% endblock %}
-        </article>
+        {% block content %}
+        {% endblock %}
       </main>
     {% endblock %}
 

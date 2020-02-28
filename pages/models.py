@@ -11,7 +11,7 @@ class Page(BasePage):
 
 class Section(BaseSection):
     '''Add custom fields here. Already existing fields: type, position,
-    title, content, image, video, button_text, button_link
+    title, content, image, video, href
 
     '''
 
@@ -23,7 +23,7 @@ class TextSection(Section):
 
 @register_model('Button')
 class ButtonSection(Section):
-    fields = ['button_text', 'button_link']
+    fields = ['title', 'href']
     class Meta:
         proxy = True
 
@@ -41,7 +41,7 @@ class VideoSection(Section):
 
 @register_model('Breadcrumbs')
 class Breadcrumbs(Section):
-    fields = []
+    fields = ['title']
     class Meta:
         proxy = True
 

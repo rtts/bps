@@ -1,12 +1,15 @@
 <section class="courses">
   <div class="wrapper">
     <h2>{{section.title}}</h2>
-    <table>
+    <ul>
       {% for course in courses %}
-        <tr>
-          <td><a href="{{course.get_absolute_url}}">{{course}}</a></td>
-        </tr>
+        <li><a href="{{course.get_absolute_url}}">{{course}}</a></li>
       {% endfor %}
-    </table>
+    </ul>
+    <ul>
+      {% for course in topics %}
+        <li><a href="{{course.get_absolute_url}}">{{course}}</a></li>
+      {% endfor %}
+    </ul>
   </div>
 </section>

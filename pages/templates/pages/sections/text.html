@@ -1,6 +1,6 @@
 {% load markdown %}
 
-<section class="{{section.type}} color{{section.color}}">
+<section class="text">
   <div class="wrapper">
     {% if section.title %}
       <div class="title">
@@ -15,7 +15,5 @@
         {{section.content|markdown}}
       </div>
     {% endif %}
-
-    {% include 'cms/editlink.html' %}
   </div>
 </section>

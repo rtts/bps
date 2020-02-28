@@ -9,7 +9,7 @@
       <table class="wizard">
         <tr>
 	  <td class="header">
-	    <img id="checkbox" src="{% if step.completedstep.passed %}{% static 'checked.png' %}{% else %}{% static 'unchecked.png' %}{% endif %}" alt="Completed" width="24" height="24">
+	    <img id="checkbox" src="{% if step.completedstep.passed %}{% static 'autodidact/checked.png' %}{% else %}{% static 'autodidact/unchecked.png' %}{% endif %}" alt="Completed" width="24" height="24">
 	    <h1>Assignment {{assignment.number}} &ndash; step {{step.number}} of {{steps|length}}</h1>
 	  </td>
         </tr>

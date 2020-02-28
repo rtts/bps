@@ -8,12 +8,10 @@
 {% block content %}
   <section class="breadcrumbs">
     <div class="wrapper">
-      <nav>
-        <ul>
-          <li><a href="/">BPS</a></li>
-          <li><a href="{{course.get_absolute_url}}">{{course}}</a></li>
-        </ul>
-      </nav>
+      <ul>
+        <li><a href="/">BPS</a></li>
+        <li><a href="{{course.get_absolute_url}}">{{course}}</a></li>
+      </ul>
     </div>
   </section>
 
@@ -34,12 +32,16 @@
           <li class="empty">No sessions available</li>
         {% endfor %}
         {% if user.is_staff and perms.autodidact.add_session %}
-          <li><div class="add"><a class="editlink" href="{% url 'add_session' course.slug %}">Add a session</a></div></li>
-        {% endif %}
-        {% if user.is_staff and perms.autodidact.add_course %}
-          <li><div class="add"><a class="editlink" href="{% url 'copy_course' course.slug %}">Duplicate this course</a></div></li>
+          <li><a class="editlink" href="{% url 'add_session' course.slug %}">Add a session</a></li>
         {% endif %}
       </ul>
     </div>
   </section>
+
+  {% if user.is_staff and perms.autodidact.change_course %}
+    <div class="edit page">
+      <a class="editlink" href="{% url 'admin:autodidact_course_change' course.pk %}"><img src="{% static 'cms/edit.svg' %}"></a>
+    </div>
+  {% endif %}
+
 {% endblock %}

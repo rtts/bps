@@ -11,7 +11,7 @@ BPS is currently available to Tilburg University students at the
 following URL: https://bps.uvt.nl/
 
 This repository contains all the source code of BPS, including the
-formerly separately published Autodidact app. Everyone if free to use
+formerly separately published Autodidact app. Everyone is free to use
 this code to built their own blended learning environment! Here's how
 to get started:
 

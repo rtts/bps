@@ -1,17 +1,7 @@
-<section class="{{section.type}} color{{section.color}}">
+<section class="image">
   {% if section.image %}
     <div class="image">
       <img alt="{{section.title}}" src="{{section.image.url}}">
     </div>
   {% endif %}
-
-  {% if section.title %}
-    <div class="title">
-      <h1>
-        {{section.title}}
-      </h1>
-    </div>
-  {% endif %}
-
-  {% include 'cms/editlink.html' %}
 </section>

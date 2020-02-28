@@ -1,12 +1,9 @@
 from django.contrib import admin
 from django.db import models
-from django.forms import RadioSelect
 from django.shortcuts import redirect
 from django.utils.safestring import mark_safe
-from django.urls import reverse
 from django.forms import CheckboxSelectMultiple
-from django.contrib.contenttypes.admin import GenericStackedInline
-from .utils import duplicate_assignment, duplicate_session, duplicate_course
+
 from .models import *
 
 class FunkySaveAdmin(object):
@@ -36,10 +33,6 @@ class FunkySaveAdmin(object):
         return super().change_view(
             request, object_id, form_url, extra_context=extra_context,
         )
-
-class InlinePageFileAdmin(admin.StackedInline):
-    model = PageFile
-    extra = 0
 
 class InlineStepFileAdmin(admin.StackedInline):
     model = StepFile
@@ -73,43 +66,13 @@ class InlineClarificationAdmin(admin.StackedInline):
 class TagAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(Programme)
-class ProgrammeAdmin(FunkySaveAdmin, admin.ModelAdmin):
-    list_display = ['name', 'slug', 'degree']
-    list_display_links = ['name']
-    ordering = ['degree', 'order']
-    prepopulated_fields = {'slug': ['name']}
-
-@admin.register(Page)
-class PageAdmin(FunkySaveAdmin, admin.ModelAdmin):
-    list_display = ['title', 'slug']
-    save_on_top = False
-    inlines = [InlinePageFileAdmin]
-
 @admin.register(Course)
 class CourseAdmin(FunkySaveAdmin, admin.ModelAdmin):
     list_display = ['__str__', 'order', 'url']
-    list_filter = ['programs']
     prepopulated_fields = {'slug': ['name']}
     formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
-    actions = [duplicate_course]
-
-@admin.register(Topic)
-class TopicAdmin(FunkySaveAdmin, admin.ModelAdmin):
-    save_on_top = False
-    list_filter = ['course']
-    exclude = ['course', 'number']
-
-    def has_add_permission(self, request):
-        return False
-
-    def short_description(self, topic):
-        s = topic.description.raw
-        if len(s) > 250:
-            s = s[:250] + '...'
-        return s
 
 @admin.register(Session)
 class SessionAdmin(FunkySaveAdmin, admin.ModelAdmin):
@@ -124,14 +87,12 @@ class SessionAdmin(FunkySaveAdmin, admin.ModelAdmin):
     formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
-    actions = [duplicate_session]
 
 @admin.register(Assignment)
 class AssignmentAdmin(FunkySaveAdmin, admin.ModelAdmin):
     ordering = ['session__course__order', 'session__number', 'number']
     list_display = ['__str__', 'session', 'nr_of_steps', 'active', 'locked']
     list_filter = ['active', 'locked', 'session__course', 'session']
-    actions = [duplicate_assignment]
 
 @admin.register(Step)
 class StepAdmin(FunkySaveAdmin, admin.ModelAdmin):
@@ -146,13 +107,3 @@ class StepAdmin(FunkySaveAdmin, admin.ModelAdmin):
 
     def get_description(self, obj):
         return mark_safe(obj.description.raw.replace('\n', '<br>'))
-
-@admin.register(Class)
-class ClassAdmin(admin.ModelAdmin):
-    def has_add_permission(self, request):
-        return False
-    list_filter = ['session__course', 'session']
-    list_display = ['date', 'number', 'session', 'ticket', 'nr_of_students', 'teacher', 'dismissed']
-    list_display_links = ['number']
-    ordering = ['-date']
-    fields = ['number', 'ticket', 'dismissed']

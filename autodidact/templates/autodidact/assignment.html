@@ -8,17 +8,22 @@
 {% block content %}
   <section class="breadcrumbs">
     <div class="wrapper">
-      <nav>
-        <ul>
-          <li><a href="/">BPS</a></li>
-          <li><a href="{% url 'course' course.slug %}">{{course}}</a></li>
-          <li><a href="{% url 'session' course.slug session.number %}">Session {{session.number}}</a></li>
-          <li><a href="{% url 'assignment' course.slug session.number assignment.number %}">Assignment {{assignment.number}}: {{assignment.name}}</a></li>
-        </ul>
-      </nav>
+      <ul>
+        <li><a href="/">BPS</a></li>
+        <li><a href="{% url 'course' course.slug %}">{{course}}</a></li>
+        <li><a href="{% url 'session' course.slug session.number %}">Session {{session.number}}</a></li>
+        <li><a href="{% url 'assignment' course.slug session.number assignment.number %}">Assignment {{assignment.number}}</a></li>
+      </ul>
     </div>
   </section>
 
   {% include 'autodidact/include/step.html' %}
+
+  {% if user.is_staff and perms.autodidact.change_step %}
+    <div class="edit page">
+      <a class="editlink" href="{% url 'admin:autodidact_step_change' step.pk %}"><img src="{% static 'cms/edit.svg' %}"></a>
+    </div>
+  {% endif %}
+
 
 {% endblock %}
