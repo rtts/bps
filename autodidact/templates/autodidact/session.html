@@ -21,7 +21,12 @@
     <div class="wrapper">
       <h1>Session {{session.number}}: {{session.name}}</h1>
       {% for presentation in session.presentations.all %}
-        <iframe src="{% static 'ViewerJS/index.html' %}#{{presentation.url}}" width="400" height="300" allowfullscreen></iframe>
+        {% if presentation.visibility == 0 %}
+        {% elif request.user.is_staff %}
+          <iframe src="{% static 'ViewerJS/index.html' %}#{{presentation.url}}" width="400" height="300" allowfullscreen></iframe>
+        {% elif presentation.visibility == 3 %}
+          <iframe src="{% static 'ViewerJS/index.html' %}#{{presentation.url}}" width="400" height="300" allowfullscreen></iframe>
+        {% endif %}
       {% endfor %}
       {{session.description|upload_urls}}
     </div>
