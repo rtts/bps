@@ -1,32 +1,44 @@
-from cms.forms import ContactForm
+from django.utils.translation import gettext_lazy as _
 from cms.views import SectionView, SectionFormView
-from cms.decorators import register_view
+from cms.decorators import section_view
+from cms.forms import ContactForm
 
 from autodidact.models import Course
-from .models import *
 
-@register_view(TextSection)
-class TextView(SectionView):
+@section_view
+class Text(SectionView):
+    verbose_name = _('Text')
+    fields = ['content']
     template_name = 'pages/sections/text.html'
 
-@register_view(ButtonSection)
-class ButtonView(SectionView):
-    template_name = 'pages/sections/button.html'
-
-@register_view(ImageSection)
-class ImageView(SectionView):
+@section_view
+class Image(SectionView):
+    verbose_name = _('Image')
+    fields = ['image']
     template_name = 'pages/sections/image.html'
 
-@register_view(VideoSection)
-class VideoView(SectionView):
+@section_view
+class Video(SectionView):
+    verbose_name = _('Video')
+    fields = ['video']
     template_name = 'pages/sections/video.html'
 
-@register_view(Breadcrumbs)
-class BreadcrumbsView(SectionView):
+@section_view
+class Button(SectionView):
+    verbose_name = _('Button')
+    fields = ['href']
+    template_name = 'pages/sections/button.html'
+
+@section_view
+class Breadcrumbs(SectionView):
+    verbose_name = _('Breadcrumbs')
+    fields = []
     template_name = 'pages/sections/breadcrumbs.html'
 
-@register_view(Courses)
-class CoursesView(SectionView):
+@section_view
+class Courses(SectionView):
+    verbose_name = _('Courses')
+    fields = []
     template_name = 'pages/sections/courses.html'
 
     def get_context_data(self, **kwargs):

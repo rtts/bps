@@ -1,4 +1,4 @@
-{% load markdown %}
+{% load cms %}
 
 <section class="text">
   <div class="wrapper">
@@ -12,7 +12,7 @@
 
     {% if section.content %}
       <div class="content">
-        {{section.content|markdown}}
+        {% eval section.content %}
       </div>
     {% endif %}
   </div>

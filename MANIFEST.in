@@ -1,3 +1,2 @@
 recursive-include ** *
 recursive-exclude ** .gitignore
-recursive-exclude ** .sass-cache

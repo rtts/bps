@@ -1,52 +1,26 @@
 from django.db import models
-from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 from cms.models import BasePage, BaseSection
-from cms.decorators import register_model
+from cms.decorators import page_model, section_model
 
+@page_model
 class Page(BasePage):
-    '''Add custom fields here. Already existing fields: position, title,
-    slug, menu
+    '''Add custom fields here. Already existing fields: title, slug,
+    number, menu
 
     '''
 
+@section_model
 class Section(BaseSection):
-    '''Add custom fields here. Already existing fields: type, position,
-    title, content, image, video, href
+    '''Add custom fields here. Already existing fields: title, type,
+    number, content, image, video, href
 
     '''
+    page = models.ForeignKey(Page, related_name='sections', on_delete=models.PROTECT)
 
-@register_model('Text')
-class TextSection(Section):
-    fields = ['title', 'content']
-    class Meta:
-        proxy = True
+class SectionImage(models.Model):
+    section = models.ForeignKey(Section, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(_('Image'))
 
-@register_model('Button')
-class ButtonSection(Section):
-    fields = ['title', 'href']
     class Meta:
-        proxy = True
-
-@register_model('Image')
-class ImageSection(Section):
-    fields = ['title', 'image']
-    class Meta:
-        proxy = True
-
-@register_model('Video')
-class VideoSection(Section):
-    fields = ['title', 'video']
-    class Meta:
-        proxy = True
-
-@register_model('Breadcrumbs')
-class Breadcrumbs(Section):
-    fields = ['title']
-    class Meta:
-        proxy = True
-
-@register_model('Courses')
-class Courses(Section):
-    fields = ['title']
-    class Meta:
-        proxy = True
+        ordering = ['pk']

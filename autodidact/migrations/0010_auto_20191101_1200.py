@@ -3,8 +3,7 @@ from django.db import migrations
 from django.utils.text import slugify
 
 def provide_slug_for_programs(apps, schema_editor):
-    # Programme = apps.get_model('autodidact', 'Programme')
-    from autodidact.models import Programme
+    Programme = apps.get_model('autodidact', 'Programme')
     for program in Programme.objects.all():
         program.slug = slugify(program.name)
         program.save()

@@ -18,57 +18,40 @@ to get started:
 Installation
 ------------
 
-The easiest way to install this is using `pip`:
+Before installing BPS, it is highly recommended to setup a [Python
+Virtual Environment](https://docs.python.org/3/tutorial/venv.html):
 
-    pip3 install git+https://github.com/rtts/bps
+    mkdir -p ~/.virtualenvs
+    python3 -m venv ~/.virtualenvs/bps
+    . ~/virtualenvs/bps/bin/activate
+
+Then, simply install this package with pip:
+
+    python3 -m pip install git+https://github.com/rtts/bps
 
 This should automatically get you the latest version of BPS and all
-its dependencies.
+its dependencies. One of these dependencies is [Django
+SimpleCMS](https://github.com/rtts/django-simplecms), an elegant and
+minimalistic CMS system by the same author as BPS.
 
-Alternatively, you can install BPS from [Tilburg University's Debian
-repository](https://non-gnu.uvt.nl/). First, add the following lines
-to `/etc/apt/sources.list`:
+Running BPS
+-----------
 
-    deb http://non-gnu.uvt.nl/debian buster uvt
-    deb-src http://non-gnu.uvt.nl/debian buster uvt
-
-Second, add the Tilburg University signing key to your apt key store:
-
-    curl https://non-gnu.uvt.nl/debian/uvt_key.asc | apt-key add -
-
-Now you can install the `bps` package with `apt`:
-
-    apt install bps
-
-Deploying the BPS project
--------------------------
-
-First, open the configuration file `/etc/bps/config.ini` and check if
-the default values are suitable for your situation (for testing
-purposes they are, but for a production server you probably want to
-use a "real" database and adjust the `allowed_hosts` setting). Now the
-database tables can be created with the following commands:
+BPS runs like any other Django project. The following commands should
+get you started:
 
     manage.py migrate
-
-Second, you will have to create at least one superuser:
-
     manage.py createsuperuser
+    manage.py runserver
 
-Finally, Apache needs to be configured to serve BPS. For this purpose,
-a basic configuration file has already been installed in
-`/etc/apache2/conf-available/bps.conf`. If you want to use it, first
-install the mod_wsgi module:
+BPS should now be up and running! Visit the URL
+http://localhost:8000/admin/ and log in with your superuser
+credentials to start adding some course content.
 
-    apt-get install libapache2-mod-wsgi
+Since BPS now includes Django SimpleCMS, logged in users will
+automatically see "add" and "edit" buttons in the appropriate places
+while visiting the main site. This should make it easier to customize
+the pages than by using the admin.
 
-Then, all you need to do is enable the BPS configuration and restart
-Apache:
-
-    cd /etc/apache2/conf-enabled
-    ln -s ../conf-available/bps.conf
-    service apache2 reload
-
-BPS should now be up and running! Visit the URL /admin/ and log in
-with your superuser credentials to start adding users and course
-content!
+If you have any further questions, don't hesitate to contact me via
+jj [at] rtts.eu

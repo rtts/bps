@@ -20,9 +20,7 @@
   {% include 'autodidact/include/step.html' %}
 
   {% if user.is_staff and perms.autodidact.change_step %}
-    <div class="edit page">
-      <a class="editlink" href="{% url 'admin:autodidact_step_change' step.pk %}"><img src="{% static 'cms/edit.svg' %}"></a>
-    </div>
+    <a class="edit page" href="{% url 'admin:autodidact_step_change' step.pk %}"><img src="{% static 'cms/edit.png' %}"></a>
   {% endif %}
 
 

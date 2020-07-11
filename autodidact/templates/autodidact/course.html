@@ -39,9 +39,7 @@
   </section>
 
   {% if user.is_staff and perms.autodidact.change_course %}
-    <div class="edit page">
-      <a class="editlink" href="{% url 'admin:autodidact_course_change' course.pk %}"><img src="{% static 'cms/edit.svg' %}"></a>
-    </div>
+    <a class="edit page" href="{% url 'admin:autodidact_course_change' course.pk %}"><img src="{% static 'cms/edit.png' %}"></a>
   {% endif %}
 
 {% endblock %}

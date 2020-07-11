@@ -50,8 +50,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'polymorphic',
     'embed_video',
     'easy_thumbnails',
     'pandocfield',
